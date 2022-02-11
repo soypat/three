@@ -18,12 +18,12 @@ func NewTextureLoader() *TextureLoader {
 
 // Load loads texture from url image.
 func (t *TextureLoader) Load(url string, fn func(*Texture)) *Texture {
-	callback := func(obj js.Value) {
-		fn(&Texture{Value: obj})
-	}
-	if fn == nil {
-		callback = func(obj js.Value) {}
-	}
+	callback := js.FuncOf(func(_ js.Value, args []js.Value) interface{} {
+		if fn != nil {
+			fn(&Texture{Value: args[0]})
+		}
+		return nil
+	})
 	return &Texture{
 		Value: t.Call("load", url, callback),
 	}

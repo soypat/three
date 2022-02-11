@@ -22,6 +22,9 @@ func AddScript(url string, objName string) {
 	script := js.Global().Get("document").Call("createElement", "script")
 	script.Set("src", url)
 	js.Global().Get("document").Get("head").Call("appendChild", script)
+	if objName == "" {
+		return
+	}
 	count := 0
 	for {
 		count++

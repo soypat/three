@@ -23,6 +23,10 @@ const (
 )
 
 func main() {
+	three.AddScript("../_vendor/three.js", "THREE")
+	three.AddScript("../_vendor/trackball_controls.js", "TrackballControls")
+	three.Init()
+
 	document := js.Global().Get("document")
 	windowWidth := js.Global().Get("innerWidth").Float()
 	windowHeight := js.Global().Get("innerHeight").Float()
@@ -56,15 +60,17 @@ func main() {
 	controls.SetPanSpeed(.8)
 	controls.SetRotateSpeed(.8)
 
-	animate()
+	animate(js.Value{}, nil)
+	select {}
 }
 
-func animate() {
+func animate(_ js.Value, _ []js.Value) interface{} {
 	controls.Update()
 	renderer.Render(scene, camera)
 
 	// Best practice (soypat's opinion) to request frame after work is done.
-	js.Global().Call("requestAnimationFrame", animate)
+	js.Global().Call("requestAnimationFrame", js.FuncOf(animate))
+	return nil
 }
 
 // CreateEarth returns a colored, reflective, beautiful, low-res, blue-marble rendition of where we live.
@@ -78,7 +84,6 @@ func CreateEarth(radius float64) *three.Mesh {
 	})
 
 	// Add textures. Visible+topo maps taken from Blue Marble collection from https://visibleearth.nasa.gov/
-
 	material := three.NewMeshPhongMaterial(&three.MaterialParameters{
 		Map:         three.NewTextureLoader().Load("./assets/visible_small.jpg", nil), // visible earth
 		BumpMap:     three.NewTextureLoader().Load("./assets/topo_small.jpg", nil),    // Show mountain shade

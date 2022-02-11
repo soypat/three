@@ -62,7 +62,7 @@ func main() {
 	select {}
 }
 
-func animate(this js.Value, args []js.Value) interface{} {
+func animate(_ js.Value, _ []js.Value) interface{} {
 	rot := mesh.GetRotation()
 	x, y, z := rot.Angles()
 	mesh.SetRotation(three.NewEuler(x+0.01, y+0.01, z, ""))
