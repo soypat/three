@@ -6,7 +6,7 @@ type Object3D interface {
 	ApplyMatrix4(matrix *Matrix4)
 	Add(Object3D)
 	Remove(js.Value)
-	ToJSON() interface{}
+	ToJSON() js.Value
 	GetObjectById(id int) js.Value
 	// Copy(source Object3D, recursive bool)
 	UpdateMatrix()

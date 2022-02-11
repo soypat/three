@@ -3,15 +3,34 @@ package three
 import (
 	"reflect"
 	"syscall/js"
+	"time"
 )
 
 var (
 	three = js.Global().Get("THREE")
 )
 
-func init() {
-	if three.IsUndefined() {
-		panic("THREE (three.js) is undefined at global level")
+func Init() {
+	three = js.Global().Get("THREE")
+	if !three.Truthy() {
+		panic("unable to find THREE in global namespace. Have you added the script?")
+	}
+}
+
+// AddScript is a helper function for adding a script and verifying it was added correctly given a namespace.
+func AddScript(url string, objName string) {
+	script := js.Global().Get("document").Call("createElement", "script")
+	script.Set("src", url)
+	js.Global().Get("document").Get("head").Call("appendChild", script)
+	count := 0
+	for {
+		count++
+		time.Sleep(25 * time.Millisecond)
+		if jsObject := js.Global().Get(objName); !jsObject.IsUndefined() {
+			break
+		} else if count > 100 {
+			panic("could not obtain " + objName + " from URL: " + url)
+		}
 	}
 }
 
@@ -43,9 +62,16 @@ func objectify(Struct interface{}) js.Value {
 		}
 		fv := vi.Field(i)
 		switch field.Type.Kind() {
-		case reflect.Float64, reflect.Int, reflect.String:
-			obj.Set(tag, fv.Interface())
+		case reflect.Float64:
+			obj.Set(tag, fv.Float())
+		case reflect.String:
+			obj.Set(tag, fv.String())
+		case reflect.Int:
+			obj.Set(tag, fv.Int())
 		case reflect.Ptr:
+			if fv.IsNil() {
+				break
+			}
 			fv = reflect.Indirect(fv)
 			if fv.Kind() != reflect.Struct {
 				break
@@ -55,7 +81,10 @@ func objectify(Struct interface{}) js.Value {
 			if fv.NumField() == 0 || fv.Field(0).Type() != reflect.TypeOf(js.Value{}) {
 				break
 			}
-			obj.Set(tag, fv.Interface().(js.Value))
+			jsv := fv.Field(0).Interface().(js.Value)
+			if jsv.Truthy() {
+				obj.Set(tag, jsv)
+			}
 		}
 	}
 	return obj

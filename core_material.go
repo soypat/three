@@ -1,13 +1,11 @@
 package three
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 type Material interface {
 	OnBeforeCompile()
 	SetValues(values MaterialParameters)
-	ToJSON(meta interface{}) interface{}
+	ToJSON(meta interface{}) js.Value
 	Clone()
 	Copy(source Object3D)
 	Dispose()
@@ -74,6 +72,6 @@ type MaterialParameters struct {
 	TransmissionMap   *Texture `js:"transmissionMap"`
 }
 
-func NewMaterialParameters(param MaterialParameters) js.Value {
-	return objectify(param)
-}
+// func NewMaterialParameters(param MaterialParameters) js.Value {
+// 	return objectify(param)
+// }

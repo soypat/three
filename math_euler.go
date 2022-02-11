@@ -26,7 +26,7 @@ func NewEuler(x, y, z float64, order string) Euler {
 }
 
 // Copy copies value of euler to receiver.
-func (e *Euler) Copy(src Euler) {
+func (e Euler) Copy(src Euler) {
 	e.Call("copy", src)
 }
 
@@ -34,10 +34,21 @@ func (e Euler) Reorder(newOrder string) {
 	e.Call("reorder", newOrder)
 }
 
-func (e *Euler) SetFromQuaternion(q Quaternion, order string) {
-	e.Call("setFromQuaternion", q, order)
+func (e Euler) SetFromQuaternion(q Quaternion, order string) {
+	e.Call("setFromQuaternion", q.Value, order)
 }
 
-func (e *Euler) Set(x, y, z float64, order string) {
+func (e Euler) SetAngles(x, y, z float64, order string) {
 	e.Call("set", x, y, z, order)
+}
+
+func (e Euler) Angles() (x, y, z float64) {
+	x = e.Get("x").Float()
+	y = e.Get("y").Float()
+	z = e.Get("z").Float()
+	return x, y, z
+}
+
+func (e Euler) GetOrder() string {
+	return e.Get("order").String()
 }

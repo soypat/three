@@ -8,7 +8,7 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Geometry interface.
-// var _ Geometry = {{ .Type }}{}
+var _ Geometry = {{ .Type }}{}
 
 func (g {{ .Type }}) ApplyMatrix4(matrix *Matrix4) {
 	g.Value.Call("applyMatrix4", matrix)

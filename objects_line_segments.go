@@ -4,9 +4,7 @@ package three
 
 //go:generate go run object3d_method_generator/main.go -typeName LineSegments -typeSlug line_segments
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 // LineSegments represents series of lines drawn between pairs of vertices.
 type LineSegments struct {

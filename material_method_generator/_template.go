@@ -8,7 +8,7 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Material interface.
-// var _ Material = {{ .Type }}{}
+var _ Material = {{ .Type }}{}
 
 func (m {{ .Type }}) OnBeforeCompile() {
 	m.Call("onBeforeCompile")

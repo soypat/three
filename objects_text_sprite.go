@@ -4,9 +4,7 @@ package three
 
 //go:generate go run object3d_method_generator/main.go -typeName TextSprite -typeSlug text_sprite
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 type TextSprite struct {
 	*js.Object

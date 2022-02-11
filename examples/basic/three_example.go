@@ -14,18 +14,22 @@ var (
 )
 
 func main() {
+	three.AddScript("../_vendor/three.js", "THREE")
+	three.Init()
 	document := js.Global().Get("document")
+
 	windowWidth := js.Global().Get("innerWidth").Float()
 	windowHeight := js.Global().Get("innerHeight").Float()
 	devicePixelRatio := js.Global().Get("devicePixelRatio").Float()
 
 	camera = three.NewPerspectiveCamera(70, windowWidth/windowHeight, 1, 1000)
-	camera.Position.Set(0, 0, 400)
+	camera.SetPosition(three.NewVector3(0, 0, 400))
 
 	scene = three.NewScene()
 
 	light := three.NewDirectionalLight(three.NewColor("white"), 1)
-	light.Position.Set(256, 256, 256).Normalize()
+	light.SetPosition(three.NewVector3(256, 256, 256).Normalize())
+
 	scene.Add(light)
 
 	ambLight := three.NewAmbientLight(three.NewColorHex(0xbbbbbb), 0.4)
@@ -43,34 +47,29 @@ func main() {
 		Depth:  128,
 	})
 
-	// geometry2 := three.NewCircleGeometry(three.CircleGeometryParameters{
-	// 	Radius:      50,
-	// 	Segments:    20,
-	// 	ThetaStart:  0,
-	// 	ThetaLength: 2,
-	// })
-
-	materialParams := three.NewMaterialParameters()
-	materialParams.Color = three.NewColor("blue")
-	// materialParams.FlatShading = false
-	materialParams.Side = three.FrontSide
 	//material := three.NewMeshBasicMaterial(materialParams)
-	material := three.NewMeshLambertMaterial(materialParams)
-	//material := three.NewMeshPhongMaterial(materialParams)
+	material := three.NewMeshLambertMaterial(&three.MaterialParameters{
+		Color:       three.NewColor("blue"),
+		Side:        three.FrontSide,
+		FlatShading: false,
+	})
+
 	mesh = three.NewMesh(geometry, material)
 
 	scene.Add(mesh)
 
-	animate()
+	animate(js.Value{}, nil)
+	select {}
 }
 
-func animate() {
-	pos := mesh.Object.Get("rotation")
-	pos.Set("x", pos.Get("x").Float()+float64(0.01))
-	pos.Set("y", pos.Get("y").Float()+float64(0.01))
+func animate(this js.Value, args []js.Value) interface{} {
+	rot := mesh.GetRotation()
+	x, y, z := rot.Angles()
+	mesh.SetRotation(three.NewEuler(x+0.01, y+0.01, z, ""))
 
 	renderer.Render(scene, camera)
 
 	// Best practice (soypat's opinion) to request frame after work is done.
-	js.Global().Call("requestAnimationFrame", animate)
+	js.Global().Call("requestAnimationFrame", js.FuncOf(animate))
+	return nil
 }

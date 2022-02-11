@@ -34,3 +34,26 @@ func (obj PerspectiveCamera) GetWorldDirection(target Vector3) Vector3 {
 func (obj PerspectiveCamera) getInternalObject() js.Value {
 	return obj.Value
 }
+
+func (obj PerspectiveCamera) SetPosition(v Vector3) {
+	x, y, z := v.Coords()
+	obj.Get("position").Call("set", x, y, z)
+}
+
+func (obj PerspectiveCamera) SetRotation(v Euler) {
+	x, y, z := v.Angles()
+	order := v.GetOrder()
+	obj.Get("rotation").Call("set", x, y, z,order)
+}
+
+// SetUp sets the up direction for the camera.
+//
+// It is the equivalent to c.Up.Set(v.X, v.Y, v.Z)
+func (obj PerspectiveCamera) SetUp(v Vector3) {
+	x, y, z := v.Coords()
+	obj.Get("up").Call("set", x, y, z)
+}
+
+func (obj PerspectiveCamera) LookAt(x, y, z float64) {
+	obj.Call("lookAt", x, y, z)
+}

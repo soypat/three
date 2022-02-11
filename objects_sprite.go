@@ -4,9 +4,7 @@ package three
 
 //go:generate go run object3d_method_generator/main.go -typeName Sprite -typeSlug sprite
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 // Sprite is a plane that always faces towards the camera, generally with a partially transparent texture applied.
 type Sprite struct {

@@ -8,7 +8,7 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Object3D interface.
-// var _ Object3D = &AmbientLight{}
+var _ Object3D = &AmbientLight{}
 
 func (obj *AmbientLight) ApplyMatrix4(matrix *Matrix4) {
 	obj.Call("applyMatrix4", matrix)
@@ -40,4 +40,27 @@ func (obj *AmbientLight) getInternalObject() js.Value {
 
 func (obj *AmbientLight) UpdateMatrix() {
 	obj.Call("updateMatrix")
+}
+
+func (obj *AmbientLight) SetPosition(v Vector3) {
+	x, y, z := v.Coords()
+	obj.Get("position").Call("set", x, y, z)
+}
+
+func (obj *AmbientLight) SetRotation(v Euler) {
+	x, y, z := v.Angles()
+	order := v.GetOrder()
+	obj.Get("rotation").Call("set", x, y, z,order)
+}
+
+func (obj *AmbientLight) GetPosition() Vector3 {
+	return Vector3{
+		Value: obj.Get("position"),
+	}
+}
+
+func (obj *AmbientLight) GetRotation() Euler {
+	return Euler{
+		Value: obj.Get("rotation"),
+	}
 }

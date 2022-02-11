@@ -4,9 +4,7 @@ package three
 
 //go:generate go run object3d_method_generator/main.go -typeName Points -typeSlug points
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 // A class for displaying points. The points are rendered by the WebGLRenderer using gl.POINTS.
 type Points struct {

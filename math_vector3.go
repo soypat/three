@@ -1,8 +1,6 @@
 package three
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 // Vector3 - represents a Vector3.
 type Vector3 struct {

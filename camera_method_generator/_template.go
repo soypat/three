@@ -34,3 +34,26 @@ func (obj {{ .Type }}) GetWorldDirection(target Vector3) Vector3 {
 func (obj {{ .Type }}) getInternalObject() js.Value {
 	return obj.Value
 }
+
+func (obj {{ .Type }}) SetPosition(v Vector3) {
+	x, y, z := v.Coords()
+	obj.Get("position").Call("set", x, y, z)
+}
+
+func (obj {{ .Type }}) SetRotation(v Euler) {
+	x, y, z := v.Angles()
+	order := v.GetOrder()
+	obj.Get("rotation").Call("set", x, y, z,order)
+}
+
+// SetUp sets the up direction for the camera.
+//
+// It is the equivalent to c.Up.Set(v.X, v.Y, v.Z)
+func (obj {{ .Type }}) SetUp(v Vector3) {
+	x, y, z := v.Coords()
+	obj.Get("up").Call("set", x, y, z)
+}
+
+func (obj {{ .Type }}) LookAt(x, y, z float64) {
+	obj.Call("lookAt", x, y, z)
+}

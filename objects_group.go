@@ -4,9 +4,7 @@ package three
 
 //go:generate go run object3d_method_generator/main.go -typeName Group -typeSlug group
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 // Group is almost identical to an Object3D. Its purpose is to make working with groups of objects syntactically clearer.
 type Group struct {

@@ -34,7 +34,7 @@ func main() {
 	scene = three.NewScene()
 
 	light := three.NewDirectionalLight(three.NewColor("white"), 1)
-	light.Position.Set(earthSize*5, earthSize, 0)
+	light.SetPosition(three.NewVector3(earthSize*5, earthSize, 0))
 	scene.Add(light)
 
 	ambLight := three.NewAmbientLight(three.NewColorHex(0xbbbbbb), 0.4)
@@ -50,12 +50,11 @@ func main() {
 
 	// Controls to rotate camera around earth
 	controls = three.NewTrackballControls(camera, rendererElement)
-	controls.MaxDistance = camDistance
-	controls.MinDistance = earthSize * 1.1
-	controls.RotateSpeed = 1
-	controls.ZoomSpeed = 1.2
-	controls.PanSpeed = 0.8
-	controls.RotateSpeed = 0.8
+	controls.SetMaxDistance(camDistance)
+	controls.SetMinDistance(earthSize * 1.1)
+	controls.SetZoomSpeed(1.2)
+	controls.SetPanSpeed(.8)
+	controls.SetRotateSpeed(.8)
 
 	animate()
 }
@@ -79,15 +78,14 @@ func CreateEarth(radius float64) *three.Mesh {
 	})
 
 	// Add textures. Visible+topo maps taken from Blue Marble collection from https://visibleearth.nasa.gov/
-	materialParams := three.NewMaterialParameters()
-	materialParams.Map = three.NewTextureLoader().Load("./assets/visible_small.jpg", nil)          // visible earth
-	materialParams.BumpMap = three.NewTextureLoader().Load("./assets/topo_small.jpg", nil)         // Show mountain shade
-	materialParams.BumpScale = 8e3 / 6300e3 * radius                                               // Mt. everest is 8km
-	materialParams.SpecularMap = three.NewTextureLoader().Load("./assets/specular_small.png", nil) // Water reflection
-	materialParams.Specular = three.NewColorHex(0x202020)                                          // greyish reflection color. white too bright
 
-	//material := three.NewMeshBasicMaterial(materialParams)
-	material := three.NewMeshPhongMaterial(materialParams)
+	material := three.NewMeshPhongMaterial(&three.MaterialParameters{
+		Map:         three.NewTextureLoader().Load("./assets/visible_small.jpg", nil), // visible earth
+		BumpMap:     three.NewTextureLoader().Load("./assets/topo_small.jpg", nil),    // Show mountain shade
+		BumpScale:   8e3 / 6300e3 * radius,
+		SpecularMap: three.NewTextureLoader().Load("./assets/specular_small.png", nil), // Water reflection
+		Specular:    three.NewColorHex(0x202020),                                       // greyish reflection color. white too bright
+	})
 	//material := three.NewMeshPhongMaterial(materialParams)
 	return three.NewMesh(geometry, material)
 }

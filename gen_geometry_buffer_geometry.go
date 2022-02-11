@@ -8,7 +8,7 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Geometry interface.
-// var _ Geometry = BufferGeometry{}
+var _ Geometry = BufferGeometry{}
 
 func (g BufferGeometry) ApplyMatrix4(matrix *Matrix4) {
 	g.Value.Call("applyMatrix4", matrix)

@@ -8,7 +8,7 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Object3D interface.
-// var _ Object3D = &{{ .Type }}{}
+var _ Object3D = &{{ .Type }}{}
 
 func (obj *{{ .Type }}) ApplyMatrix4(matrix *Matrix4) {
 	obj.Call("applyMatrix4", matrix)
@@ -40,4 +40,27 @@ func (obj *{{ .Type }}) getInternalObject() js.Value {
 
 func (obj *{{ .Type }}) UpdateMatrix() {
 	obj.Call("updateMatrix")
+}
+
+func (obj *{{ .Type }}) SetPosition(v Vector3) {
+	x, y, z := v.Coords()
+	obj.Get("position").Call("set", x, y, z)
+}
+
+func (obj *{{ .Type }}) SetRotation(v Euler) {
+	x, y, z := v.Angles()
+	order := v.GetOrder()
+	obj.Get("rotation").Call("set", x, y, z,order)
+}
+
+func (obj *{{ .Type }}) GetPosition() Vector3 {
+	return Vector3{
+		Value: obj.Get("position"),
+	}
+}
+
+func (obj *{{ .Type }}) GetRotation() Euler {
+	return Euler{
+		Value: obj.Get("rotation"),
+	}
 }

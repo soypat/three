@@ -1,8 +1,6 @@
 package three
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 // The WebGLRenderer displays your beautifully crafted scenes using WebGL.
 type WebGLRenderer struct {

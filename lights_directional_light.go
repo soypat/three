@@ -17,7 +17,3 @@ func NewDirectionalLight(color *Color, intensity float64) *DirectionalLight {
 		Value: three.Get("DirectionalLight").New(color, intensity),
 	}
 }
-
-func (l *DirectionalLight) SetPosition(v Vector3) {
-	l.Set("position", v.Value)
-}

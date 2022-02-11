@@ -8,7 +8,7 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Material interface.
-// var _ Material = MeshLambertMaterial{}
+var _ Material = MeshLambertMaterial{}
 
 func (m MeshLambertMaterial) OnBeforeCompile() {
 	m.Call("onBeforeCompile")

@@ -2,9 +2,7 @@ package three
 
 //go:generate go run object3d_method_generator/main.go -typeName Scene -typeSlug scene
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 // Scene - Allows you to set up what and where is to be rendered by three.js. This is where you place objects, lights and cameras.
 type Scene struct {

@@ -4,10 +4,6 @@ package three
 
 import "syscall/js"
 
-type PerspectiveCameraPosition struct {
-	Z int
-}
-
 type PerspectiveCamera struct {
 	// Use Set method to set up vector.
 	// Up               Vector3 `js:"up"`
@@ -48,25 +44,10 @@ func (c PerspectiveCamera) SetViewOffset(fullWidth, fullHeight, x, y, width, hei
 	c.Call("setViewOffset", fullWidth, fullHeight, x, y, width, height)
 }
 
-// SetUp sets the up direction for the camera.
-//
-// It is the equivalent to c.Up.Set(v.X, v.Y, v.Z)
-func (c PerspectiveCamera) SetUp(v Vector3) {
-	c.Set("up", v.Value)
-}
-
-func (c PerspectiveCamera) SetPosition(v Vector3) {
-	c.Set("position", v.Value)
-}
-
 func (c PerspectiveCamera) ClearViewOffset() {
 	c.Call("clearViewOffset")
 }
 
 func (c PerspectiveCamera) UpdateProjectionMatrix() {
 	c.Call("updateProjectionMatrix")
-}
-
-func (c PerspectiveCamera) LookAt(x, y, z float64) {
-	c.Call("lookAt", x, y, z)
 }

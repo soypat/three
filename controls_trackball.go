@@ -91,3 +91,23 @@ func (t TrackballControls) Update() {
 func (t TrackballControls) ZoomCamera() {
 	t.Value.Call("zoomCamera")
 }
+
+func (t TrackballControls) SetMaxDistance(d float64) {
+	t.Value.Set("maxDistance", d)
+}
+
+func (t TrackballControls) SetMinDistance(d float64) {
+	t.Value.Set("minDistance", d)
+}
+
+func (t TrackballControls) SetRotateSpeed(v float64) {
+	t.Value.Set("rotateSpeed", v)
+}
+
+func (t TrackballControls) SetZoomSpeed(v float64) {
+	t.Value.Set("zoomSpeed", v)
+}
+
+func (t TrackballControls) SetPanSpeed(v float64) {
+	t.Value.Set("panSpeed", v)
+}

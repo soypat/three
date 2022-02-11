@@ -1,5 +1,3 @@
-//go:build TODO
-
 package three
 
 //go:generate go run geometry_method_generator/main.go -geometryType SphereGeometry -geometrySlug sphere_geometry
@@ -11,12 +9,11 @@ import (
 )
 
 type SphereGeometry struct {
-	*js.Object
-
-	Radius float64 `js:"radius"`
-	// Segments    int     `js:"segments"` // Not sure if available.
-	ThetaStart  float64 `js:"thetaStart"`
-	ThetaLength float64 `js:"thetaLength"`
+	// Radius float64 `js:"radius"`
+	// // Segments    int     `js:"segments"` // Not sure if available.
+	// ThetaStart  float64 `js:"thetaStart"`
+	// ThetaLength float64 `js:"thetaLength"`
+	js.Value
 }
 
 type SphereGeometryParameters struct {
@@ -47,7 +44,7 @@ func NewSphereGeometry(params SphereGeometryParameters) SphereGeometry {
 		params.Radius = 1
 	}
 	return SphereGeometry{
-		Object: three.Get("SphereGeometry").New(
+		Value: three.Get("SphereGeometry").New(
 			params.Radius,
 			params.WidthSegments,
 			params.HeightSegments,

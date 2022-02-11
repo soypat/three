@@ -4,9 +4,7 @@ package three
 
 //go:generate go run material_method_generator/main.go -materialName MeshBasicMaterial -materialSlug mesh_basic_material
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 type MeshBasicMaterial struct {
 	*js.Object

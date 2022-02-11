@@ -24,7 +24,7 @@ type Geometry interface {
 	MergeMesh(mesh Mesh)
 	MergeVertices()
 	SortFacesByMaterialIndex()
-	ToJSON() interface{}
+	ToJSON() js.Value
 	// Clone()
 	// Copy(source Object3D)
 	Dispose()

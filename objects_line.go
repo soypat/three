@@ -4,9 +4,7 @@ package three
 
 //go:generate go run object3d_method_generator/main.go -typeName Line -typeSlug line
 
-import (
-	"syscall/js"
-)
+import "syscall/js"
 
 // Line a continuous line.
 type Line struct {
