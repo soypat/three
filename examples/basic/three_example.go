@@ -14,7 +14,8 @@ var (
 )
 
 func main() {
-	three.AddScript("../_vendor/three.js", "THREE")
+	// three.AddScript("../_vendor/three.js", "THREE")
+	three.AddScript("https://threejs.org/build/three.js", "THREE")
 	three.Init()
 	document := js.Global().Get("document")
 

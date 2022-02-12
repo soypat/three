@@ -23,8 +23,9 @@ const (
 )
 
 func main() {
-	three.AddScript("../_vendor/three.js", "THREE")
-	three.AddScript("../_vendor/trackball_controls.js", "TrackballControls")
+	three.AddScript("https://threejs.org/build/three.js", "THREE")
+	// three.AddScript("../_vendor/three.js", "THREE")
+	three.AddScript("assets/trackball_controls.js", "TrackballControls")
 	three.Init()
 
 	document := js.Global().Get("document")
