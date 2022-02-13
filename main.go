@@ -64,6 +64,10 @@ func objectify(Struct interface{}) js.Value {
 			continue
 		}
 		fv := vi.Field(i)
+		if fv.IsZero() {
+			// Skip zero values and nil pointers.
+			continue
+		}
 		switch field.Type.Kind() {
 		case reflect.Float64:
 			obj.Set(tag, fv.Float())
@@ -87,6 +91,10 @@ func objectify(Struct interface{}) js.Value {
 			jsv := fv.Field(0).Interface().(js.Value)
 			if jsv.Truthy() {
 				obj.Set(tag, jsv)
+			}
+		case reflect.Interface:
+			if ifv, ok := fv.Interface().(objecter); ok {
+				obj.Set(tag, ifv.getInternalObject())
 			}
 		}
 	}
