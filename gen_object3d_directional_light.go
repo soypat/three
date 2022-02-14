@@ -11,11 +11,11 @@ import "syscall/js"
 var _ Object3D = &DirectionalLight{}
 
 func (obj *DirectionalLight) ApplyMatrix4(matrix *Matrix4) {
-	obj.Call("applyMatrix4", matrix)
+	obj.Call("applyMatrix4", matrix.Value)
 }
 
 func (obj *DirectionalLight) Add(m Object3D) {
-	obj.Value.Call("add", m)
+	obj.Value.Call("add", m.getInternalObject())
 }
 
 func (obj *DirectionalLight) Remove(m js.Value) {
@@ -43,14 +43,11 @@ func (obj *DirectionalLight) UpdateMatrix() {
 }
 
 func (obj *DirectionalLight) SetPosition(v Vector3) {
-	x, y, z := v.Coords()
-	obj.Get("position").Call("set", x, y, z)
+	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *DirectionalLight) SetRotation(v Euler) {
-	x, y, z := v.Angles()
-	order := v.GetOrder()
-	obj.Get("rotation").Call("set", x, y, z,order)
+func (obj *DirectionalLight) SetRotation(euler Euler) {
+	obj.Get("rotation").Call("copy", euler.Value)
 }
 
 func (obj *DirectionalLight) GetPosition() Vector3 {

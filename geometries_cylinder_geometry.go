@@ -1,5 +1,3 @@
-//go:build TODO
-
 package three
 
 //go:generate go run geometry_method_generator/main.go -geometryType CylinderGeometry -geometrySlug cylinder_geometry
@@ -12,16 +10,15 @@ import (
 
 // CylinderGeometry a class for generating cylinder geometries.
 type CylinderGeometry struct {
-	*js.Object
-
-	RadiusTop      float64 `js:"radiusTop"`
-	RadiusBottom   float64 `js:"radiusBottom"`
-	Height         float64 `js:"height"`
-	RadialSegments int     `js:"radialSegments"`
-	HeightSegments int     `js:"heightSegments"`
-	OpenEnded      bool    `js:"openEnded"`
-	ThetaStart     float64 `js:"thetaStart"`
-	ThetaLength    float64 `js:"thetaLength"`
+	// RadiusTop      float64 `js:"radiusTop"`
+	// RadiusBottom   float64 `js:"radiusBottom"`
+	// Height         float64 `js:"height"`
+	// RadialSegments int     `js:"radialSegments"`
+	// HeightSegments int     `js:"heightSegments"`
+	// OpenEnded      bool    `js:"openEnded"`
+	// ThetaStart     float64 `js:"thetaStart"`
+	// ThetaLength    float64 `js:"thetaLength"`
+	js.Value
 }
 
 // CylinderGeometryParameters .
@@ -77,8 +74,7 @@ func NewCylinderGeometry(params *CylinderGeometryParameters) CylinderGeometry {
 		params.ThetaStart,
 		params.ThetaLength,
 	)
-	// js.Global().Get("console").Call("log", obj.Interface(), params)
 	return CylinderGeometry{
-		Object: obj,
+		Value: obj,
 	}
 }

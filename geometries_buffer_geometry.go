@@ -39,15 +39,15 @@ func (bg *BufferGeometry) AddFace(a, b, c int) {
 }
 
 // AddAttribute adds a new attribute like 'position' to the BufferGeometry.
-func (bg *BufferGeometry) SetAttribute(name string, attr *BufferAttribute) {
-	bg.Call("setAttribute", name, attr)
+func (bg *BufferGeometry) SetAttribute(name string, attr BufferAttribute) {
+	bg.Call("setAttribute", name, attr.Value)
 }
 
 // GetAttribute retruns BufferGeometry's attribute by name (should be added first by
 // AddAttribute call, see threejs docs for explanations.
-func (bg *BufferGeometry) GetAttribute(name string) *BufferAttribute {
+func (bg *BufferGeometry) GetAttribute(name string) BufferAttribute {
 	obj := bg.Call("getAttribute", name)
-	return &BufferAttribute{
+	return BufferAttribute{
 		Value: obj,
 	}
 }

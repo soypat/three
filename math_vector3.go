@@ -18,7 +18,7 @@ func NewVector3(x, y, z float64) Vector3 {
 
 // Add a to this vector.
 func (v Vector3) Add(a Vector3) (this Vector3) {
-	v.Call("add", v)
+	v.Call("add", a.Value)
 	return v
 }
 
@@ -30,13 +30,13 @@ func (v Vector3) AddScalar(f float64) (this Vector3) {
 
 // AddScaledVector Adds the multiple of a and f to this vector. this = f*a
 func (v Vector3) AddScaledVector(f float64, a Vector3) (this Vector3) {
-	v.Call("addScaledVector", a, f)
+	v.Call("addScaledVector", a.Value, f)
 	return v
 }
 
 // ApplyAxisAngle Applies a rotation specified by a normalized axis and an angle to this vector.
 func (v Vector3) ApplyAxisAngle(axis Vector3, angle float64) (this Vector3) {
-	v.Call("applyAxisAngle", axis, angle)
+	v.Call("applyAxisAngle", axis.Value, angle)
 	return v
 }
 
@@ -48,13 +48,13 @@ func (v Vector3) ApplyEuler(euler Euler) (this Vector3) {
 
 // ApplyQuaternion transform to this vector.
 func (v Vector3) ApplyQuaternion(q Quaternion) (this Vector3) {
-	v.Call("applyQuaternion", q)
+	v.Call("applyQuaternion", q.Value)
 	return v
 }
 
 // AngleTo Returns the angle between this vector and vector a in radians.
 func (v Vector3) AngleTo(a Vector3) (this Vector3) {
-	v.Call("angleTo", a)
+	v.Call("angleTo", a.Value)
 	return v
 }
 
@@ -82,35 +82,35 @@ func (v Vector3) ClampScalar(min, max float64) (this Vector3) {
 
 // Cross Sets this vector to cross product of itself and a.
 func (v Vector3) Cross(a Vector3) (this Vector3) {
-	v.Call("cross", a)
+	v.Call("cross", a.Value)
 	return v
 }
 
 // CrossVectors Sets this vector to cross product of a and b.
 func (v Vector3) CrossVectors(a, b Vector3) (this Vector3) {
-	v.Call("cross", a, b)
+	v.Call("cross", a.Value, b.Value)
 	return v
 }
 
 // DistanceTo Computes the distance from this vector to v.
 func (v Vector3) DistanceTo(a Vector3) float64 {
-	return v.Call("distanceTo", a).Float()
+	return v.Call("distanceTo", a.Value).Float()
 }
 
 // ManhattanDistanceTo Computes the manhattan distance from this vector to v. https://en.wikipedia.org/wiki/Taxicab_geometry
 func (v Vector3) ManhattanDistanceTo(a Vector3) float64 {
-	return v.Call("manhattanDistanceTo", a).Float()
+	return v.Call("manhattanDistanceTo", a.Value).Float()
 }
 
 // DistanceToSquared Computes the squared distance from this vector to v. If you are just comparing the distance
 // with another distance, you should compare the distance squared instead as it is slightly more efficient to calculate.
 func (v Vector3) DistanceToSquared(a Vector3) float64 {
-	return v.Call("distanceToSquared", a).Float()
+	return v.Call("distanceToSquared", a.Value).Float()
 }
 
 // Divide this vector by a.
 func (v Vector3) Divide(a Vector3) (this Vector3) {
-	v.Call("divide", a)
+	v.Call("divide", a.Value)
 	return v
 }
 
@@ -122,14 +122,13 @@ func (v Vector3) DivideScalar(f float64) (this Vector3) {
 
 // Dot Calculate the dot product of this vector and v.
 func (v Vector3) Dot(a Vector3) (this Vector3) {
-	v.Call("dot", a)
+	v.Call("dot", a.Value)
 	return v
 }
 
 // Equals Returns true if the components of this vector and v are strictly equal; false otherwise.
-func (v Vector3) Equals(a Vector3) (this Vector3) {
-	v.Call("equals", a)
-	return v
+func (v Vector3) Equals(a Vector3) bool {
+	return v.Call("equals", a.Value).Bool()
 }
 
 // Floor The components of this vector are rounded down to the nearest integer value.
@@ -140,7 +139,7 @@ func (v Vector3) Floor() (this Vector3) {
 
 // GetComponent gets X value if idx=0. Gets Y if idx=1. Gets Z if idx=2.
 func (v Vector3) GetComponent(idx int) float64 {
-	return v.Call("getComponent").Float()
+	return v.Call("getComponent", idx).Float()
 }
 
 // Length Computes the Euclidean length (straight-line length) from (0, 0, 0) to (x, y, z).
@@ -161,31 +160,31 @@ func (v Vector3) LengthSq() float64 {
 
 // Lerp Linearly interpolate between this vector and v, where alpha is the percent distance along the line - alpha = 0 will be this vector, and alpha = 1 will be a.
 func (v Vector3) Lerp(f float64, a Vector3) (this Vector3) {
-	v.Call("lerp", a, f)
+	v.Call("lerp", a.Value, f)
 	return v
 }
 
 // LerpVectors Sets this vector to be the vector linearly interpolated between a and b where alpha is the percent distance along the line connecting the two vectors - alpha = 0 will be a, and alpha = 1 will be b.
 func (v Vector3) LerpVectors(f float64, a, b Vector3) (this Vector3) {
-	v.Call("lerpVectors", a, b, f)
+	v.Call("lerpVectors", a.Value, b.Value, f)
 	return v
 }
 
 // Max If this vector's x, y or z value is less than a's x, y or z value, replace that value with the corresponding max value.
 func (v Vector3) Max(a Vector3) (this Vector3) {
-	v.Call("max", a)
+	v.Call("max", a.Value)
 	return v
 }
 
 // Min If this vector's x, y or z value is greater than a's x, y or z value, replace that value with the corresponding min value.
 func (v Vector3) Min(a Vector3) (this Vector3) {
-	v.Call("min", a)
+	v.Call("min", a.Value)
 	return v
 }
 
 // Multiply Multiplies this vector by v.
 func (v Vector3) Multiply(a Vector3) (this Vector3) {
-	v.Call("multiply", a)
+	v.Call("multiply", a.Value)
 	return v
 }
 
@@ -220,7 +219,7 @@ func (v Vector3) SetLength(f float64) Vector3 {
 
 // Sub Subtracts v from this vector.
 func (v Vector3) Sub(a Vector3) Vector3 {
-	v.Call("sub", a)
+	v.Call("sub", a.Value)
 	return v
 }
 
@@ -238,11 +237,11 @@ func (v Vector3) Random() Vector3 {
 
 // SubVectors Sets this vector to a - b.
 func (v Vector3) SubVectors(a, b Vector3) Vector3 {
-	v.Call("subVectors", a, b)
+	v.Call("subVectors", a.Value, b.Value)
 	return v
 }
 
-func (v Vector3) Set(x, y, z float64) Vector3 {
+func (v Vector3) SetCoords(x, y, z float64) Vector3 {
 	v.Call("set", x, y, z)
 	return v
 }

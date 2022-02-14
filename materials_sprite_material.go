@@ -1,5 +1,3 @@
-//go:build TODO
-
 package three
 
 //go:generate go run material_method_generator/main.go -materialName SpriteMaterial -materialSlug sprite_material
@@ -7,13 +5,12 @@ package three
 import "syscall/js"
 
 type SpriteMaterial struct {
-	*js.Object
+	js.Value
 }
 
 func NewSpriteMaterial(texture *Texture) *SpriteMaterial {
-	params := NewMaterialParameters()
-	params.Map = texture
+	v := objectify(&MaterialParameters{Map: texture})
 	return &SpriteMaterial{
-		Object: three.Get("SpriteMaterial").New(params),
+		Value: three.Get("SpriteMaterial").New(v),
 	}
 }

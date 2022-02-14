@@ -7,23 +7,20 @@ package three
 import "syscall/js"
 
 type TextSprite struct {
-	*js.Object
-
-	Text string
-
-	ID               int             `js:"id"`
-	Position         *Vector3        `js:"position"`
-	Rotation         *Euler          `js:"rotation"`
-	Geometry         *BufferGeometry `js:"geometry"`
-	MatrixAutoUpdate bool            `js:"matrixAutoUpdate"`
-	RenderOrder      int             `js:"renderOrder"`
-	Visible          bool            `js:"visible"`
+	// Text string
+	// ID               int             `js:"id"`
+	// Position         *Vector3        `js:"position"`
+	// Rotation         *Euler          `js:"rotation"`
+	// Geometry         *BufferGeometry `js:"geometry"`
+	// MatrixAutoUpdate bool            `js:"matrixAutoUpdate"`
+	// RenderOrder      int             `js:"renderOrder"`
+	// Visible          bool            `js:"visible"`
+	js.Value
 }
 
-var _ Object3D = &TextSprite{}
-
 type TextSpriteParameters struct {
-	*js.Object
+	// SEE MaterialParameters for example on how to implement this.
+	js.Value
 	TextSize       int                 `js:"textSize"`
 	RedrawInterval int                 `js:"redrawInterval"`
 	Material       *TextSpriteMaterial `js:"material"`

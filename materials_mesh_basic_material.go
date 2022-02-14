@@ -1,5 +1,3 @@
-//go:build TODO
-
 package three
 
 //go:generate go run material_method_generator/main.go -materialName MeshBasicMaterial -materialSlug mesh_basic_material
@@ -7,11 +5,12 @@ package three
 import "syscall/js"
 
 type MeshBasicMaterial struct {
-	*js.Object
+	js.Value
 }
 
-func NewMeshBasicMaterial(params *MaterialParameters) *MeshBasicMaterial {
-	return &MeshBasicMaterial{
-		Object: three.Get("MeshBasicMaterial").New(params.Object),
+func NewMeshBasicMaterial(params *MaterialParameters) MeshBasicMaterial {
+	v := objectify(params)
+	return MeshBasicMaterial{
+		Value: three.Get("MeshBasicMaterial").New(v),
 	}
 }

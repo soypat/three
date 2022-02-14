@@ -23,8 +23,8 @@ const (
 )
 
 func main() {
+	// THREE Initialization.
 	three.AddScript("https://threejs.org/build/three.js", "THREE")
-	// three.AddScript("../_vendor/three.js", "THREE")
 	three.AddScript("assets/trackball_controls.js", "TrackballControls")
 	three.Init()
 
@@ -61,7 +61,7 @@ func main() {
 	controls.SetPanSpeed(.8)
 	controls.SetRotateSpeed(.8)
 
-	animate(js.Value{}, nil)
+	animate(js.Null(), nil)
 	select {}
 }
 
@@ -92,6 +92,5 @@ func CreateEarth(radius float64) *three.Mesh {
 		SpecularMap: three.NewTextureLoader().Load("./assets/specular_small.png", nil), // Water reflection
 		Specular:    three.NewColorHex(0x202020),                                       // greyish reflection color. white too bright
 	})
-	//material := three.NewMeshPhongMaterial(materialParams)
 	return three.NewMesh(geometry, material)
 }

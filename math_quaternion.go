@@ -19,7 +19,7 @@ func NewQuaternion() Quaternion {
 
 // Returns the angle between this quaternion and quaternion a in radians.
 func (q Quaternion) AngleTo(a Quaternion) float64 {
-	return q.Value.Call("angleTo", a).Float()
+	return q.Value.Call("angleTo", a.Value).Float()
 }
 
 // Returns the rotational conjugate of this quaternion.
@@ -29,17 +29,17 @@ func (q Quaternion) Conjugate() Quaternion {
 }
 
 func (q Quaternion) Copy(a Quaternion) Quaternion {
-	return Quaternion{Value: q.Value.Call("copy", a)}
+	return Quaternion{Value: q.Value.Call("copy", a.Value)}
 }
 
 // Compares the x, y, z and w properties of a to the equivalent properties of this quaternion to determine if they represent the same rotation.
 func (q Quaternion) Equals(a Quaternion) bool {
-	return q.Value.Call("equals", a).Bool()
+	return q.Value.Call("equals", a.Value).Bool()
 }
 
 // Calculates the dot product of quaternions a and receiver.
 func (q Quaternion) Dot(a Quaternion) float64 {
-	return q.Value.Call("dot", a).Float()
+	return q.Value.Call("dot", a.Value).Float()
 }
 
 // Sets this quaternion to the identity quaternion; that is, to the quaternion that represents "no rotation".
@@ -70,17 +70,17 @@ func (q Quaternion) Normalize() Quaternion {
 
 // Multiply this quaternion by a.
 func (q Quaternion) Multiply(a Quaternion) Quaternion {
-	return Quaternion{Value: q.Value.Call("multiply", a)}
+	return Quaternion{Value: q.Value.Call("multiply", a.Value)}
 }
 
 // MultiplyQuaternions Sets this quaternion to a x b. Adapted from the method outlined here http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
 func (q Quaternion) MultiplyQuaternions(a, b Quaternion) Quaternion {
-	return Quaternion{Value: q.Value.Call("multiplyQuaternions", a, b)}
+	return Quaternion{Value: q.Value.Call("multiplyQuaternions", a.Value, b.Value)}
 }
 
 // Premultiply Pre-multiplies this quaternion by a.
 func (q Quaternion) Premultiply(a Quaternion) Quaternion {
-	return Quaternion{Value: q.Value.Call("premultiply", a)}
+	return Quaternion{Value: q.Value.Call("premultiply", a.Value)}
 }
 
 // Random Sets this quaternion to a uniformly random, normalized quaternion.
@@ -91,19 +91,19 @@ func (q Quaternion) Random() Quaternion {
 // RotateTowards Rotates this quaternion by a given angular step to the defined quaternion a.
 // The method ensures that the final quaternion will not overshoot a.
 func (q Quaternion) RotateTowards(a Quaternion, step float64) Quaternion {
-	return Quaternion{Value: q.Value.Call("rotateTowards", a, step)}
+	return Quaternion{Value: q.Value.Call("rotateTowards", a.Value, step)}
 }
 
 // Slerp Handles the spherical linear interpolation between quaternions.
 // t represents the amount of rotation between this quaternion (where t is 0) and qb (where t is 1).
 // This quaternion is set to the result. Also see the static version of the slerp below.
 func (q Quaternion) Slerp(qb Quaternion, t float64) Quaternion {
-	return Quaternion{Value: q.Value.Call("slerp", qb, t)}
+	return Quaternion{Value: q.Value.Call("slerp", qb.Value, t)}
 }
 
 // SlerpQuaternions Performs a spherical linear interpolation between the given quaternions and stores the result in this quaternion.
 func (q Quaternion) SlerpQuaternions(qa, qb Quaternion, t float64) (this Quaternion) {
-	q.Value.Call("slerpQuaternions", qa, qb, t)
+	q.Value.Call("slerpQuaternions", qa.Value, qb.Value, t)
 	return q
 }
 
@@ -119,14 +119,14 @@ func (q Quaternion) Set(x, y, z, w float64) Quaternion {
 // Axis is assumed to be normalized, angle is in radians.
 func (q Quaternion) SetFromAxisAngle(axis Vector3, angle float64) Quaternion {
 	return Quaternion{
-		Value: q.Value.Call("setFromAxisAngle", axis, angle),
+		Value: q.Value.Call("setFromAxisAngle", axis.Value, angle),
 	}
 }
 
 // SetFromEuler sets this quaternion from the rotation specified by Euler angle.
 func (q Quaternion) SetFromEuler(euler Euler) Quaternion {
 	return Quaternion{
-		Value: q.Value.Call("setFromEuler", euler),
+		Value: q.Value.Call("setFromEuler", euler.Value),
 	}
 }
 
@@ -135,7 +135,7 @@ func (q Quaternion) SetFromEuler(euler Euler) Quaternion {
 // m - a Matrix4 of which the upper 3x3 of matrix is a pure rotation matrix (i.e. unscaled).
 func (q Quaternion) SetFromRotationMatrix(m Matrix4) Quaternion {
 	return Quaternion{
-		Value: q.Value.Call("setFromRotationMatrix", m),
+		Value: q.Value.Call("setFromRotationMatrix", m.Value),
 	}
 }
 
@@ -159,6 +159,6 @@ func (q Quaternion) SetFromUnitVectors(vFrom, vTo Vector3) Quaternion {
 	//     return quat(0.5f * m, w.x, w.y, w.z);
 	// }
 	return Quaternion{
-		Value: q.Value.Call("setFromUnitVectors", vFrom, vTo),
+		Value: q.Value.Call("setFromUnitVectors", vFrom.Value, vTo.Value),
 	}
 }

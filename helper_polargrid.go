@@ -1,5 +1,3 @@
-//go:build TODO
-
 package three
 
 //go:generate go run object3d_method_generator/main.go -typeName PolarGridHelper -typeSlug polargrid_helper
@@ -7,18 +5,17 @@ package three
 import "syscall/js"
 
 type PolarGridHelper struct {
-	*js.Object
-
 	// Copied from LineSegments struct:
 
-	ID               int             `js:"id"`
-	Position         *Vector3        `js:"position"`
-	Rotation         *Euler          `js:"rotation"`
-	Geometry         *BufferGeometry `js:"geometry"`
-	Material         Material        `js:"material"`
-	MatrixAutoUpdate bool            `js:"matrixAutoUpdate"`
-	RenderOrder      int             `js:"renderOrder"`
-	Visible          bool            `js:"visible"`
+	// ID               int             `js:"id"`
+	// Position         *Vector3        `js:"position"`
+	// Rotation         *Euler          `js:"rotation"`
+	// Geometry         *BufferGeometry `js:"geometry"`
+	// Material         Material        `js:"material"`
+	// MatrixAutoUpdate bool            `js:"matrixAutoUpdate"`
+	// RenderOrder      int             `js:"renderOrder"`
+	// Visible          bool            `js:"visible"`
+	js.Value
 }
 
 type PolarGridHelperParameters struct {
@@ -60,7 +57,7 @@ func NewPolarGridHelper(params *PolarGridHelperParameters) *PolarGridHelper {
 		params.Color2 = NewColorHex(0x888888)
 	}
 	return &PolarGridHelper{
-		Object: three.Get("PolarGridHelper").New(
+		Value: three.Get("PolarGridHelper").New(
 			params.Radius,
 			params.Radials,
 			params.Circles,

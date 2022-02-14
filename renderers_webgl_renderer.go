@@ -23,6 +23,6 @@ func (r WebGLRenderer) SetPixelRatio(ratio float64) {
 	r.Call("setPixelRatio", ratio)
 }
 
-func (r WebGLRenderer) Render(scene *Scene, camera PerspectiveCamera) {
-	r.Call("render", scene.Value, camera.Value)
+func (r WebGLRenderer) Render(scene *Scene, camera Camera) {
+	r.Call("render", scene.Value, camera.getInternalObject())
 }

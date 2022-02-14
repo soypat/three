@@ -5,8 +5,6 @@ package three
 import "syscall/js"
 
 type AxesHelper struct {
-	js.Value
-
 	// Copied from LineSegments struct:
 
 	// ID               int             `js:"id"`
@@ -17,6 +15,7 @@ type AxesHelper struct {
 	// MatrixAutoUpdate bool            `js:"matrixAutoUpdate"`
 	// RenderOrder      int             `js:"renderOrder"`
 	// Visible          bool            `js:"visible"`
+	js.Value
 }
 
 func NewAxesHelper(size float64) *AxesHelper {
@@ -29,7 +28,7 @@ func NewAxesHelper(size float64) *AxesHelper {
 }
 
 func (g AxesHelper) SetColors(xaxis, yaxis, zaxis *Color) AxesHelper {
-	g.Value.Call("setColor", xaxis, yaxis, zaxis)
+	g.Value.Call("setColor", xaxis.Value, yaxis.Value, zaxis.Value)
 	return g
 }
 

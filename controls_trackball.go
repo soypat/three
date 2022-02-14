@@ -48,7 +48,7 @@ func NewTrackballControls(camera Camera, domElement js.Value) TrackballControls 
 		panic("domElement must be defined")
 	}
 	return TrackballControls{
-		Value: trackball.New(camera, domElement),
+		Value: trackball.New(camera.getInternalObject(), domElement),
 	}
 }
 
@@ -90,6 +90,10 @@ func (t TrackballControls) Update() {
 // Performs zooming if necessary. Called by update().
 func (t TrackballControls) ZoomCamera() {
 	t.Value.Call("zoomCamera")
+}
+
+func (t TrackballControls) SetTarget(v Vector3) {
+	t.Value.Get("target").Call("copy", v.Value)
 }
 
 func (t TrackballControls) SetMaxDistance(d float64) {

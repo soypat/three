@@ -17,14 +17,14 @@ func NewMatrix4() *Matrix4 {
 
 // Sets this matrix to the transformation composed of position, quaternion and scale.
 func (m *Matrix4) Compose(position Vector3, q Quaternion, scale Vector3) (this *Matrix4) {
-	m.Value.Call("compose", position, q, scale)
+	m.Value.Call("compose", position.Value, q.Value, scale.Value)
 	return m
 }
 
 // Decomposes this matrix into its position, quaternion and scale components.
 // Note: Not all matrices are decomposable in this way. For example, if an object has a non-uniformly scaled parent, then the object's world matrix may not be decomposable, and this method may not be appropriate.
 func (m *Matrix4) Decompose(position Vector3, q Quaternion, scale Vector3) {
-	m.Value.Call("decompose", position, q, scale)
+	m.Value.Call("decompose", position.Value, q.Value, scale.Value)
 }
 
 // http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
@@ -42,12 +42,12 @@ func (m *Matrix4) Determinant() float64 {
 //  y = (b, f, j)
 //  z = (c, g, k)
 func (m *Matrix4) ExtractBasis(x, y, z Vector3) (this *Matrix4) {
-	m.Value.Call("extractBasis", x, y, z)
+	m.Value.Call("extractBasis", x.Value, y.Value, z.Value)
 	return m
 }
 
 func (m *Matrix4) ExtractRotation(a *Matrix4) (this *Matrix4) {
-	m.Value.Call("extractRotation", a)
+	m.Value.Call("extractRotation", a.Value)
 	return m
 }
 
@@ -78,7 +78,7 @@ func (m *Matrix4) MakeTranslation(x, y, z float64) (this *Matrix4) {
 //  xAxis.z, yAxis.z, zAxis.z, 0,
 //  0,       0,       0,       1
 func (m *Matrix4) MakeBasis(x, y, z Vector3) (this *Matrix4) {
-	m.Value.Call("makeBasis", x, y, z)
+	m.Value.Call("makeBasis", x.Value, y.Value, z.Value)
 	return m
 }
 

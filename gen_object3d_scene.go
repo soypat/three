@@ -11,11 +11,11 @@ import "syscall/js"
 var _ Object3D = &Scene{}
 
 func (obj *Scene) ApplyMatrix4(matrix *Matrix4) {
-	obj.Call("applyMatrix4", matrix)
+	obj.Call("applyMatrix4", matrix.Value)
 }
 
 func (obj *Scene) Add(m Object3D) {
-	obj.Value.Call("add", m)
+	obj.Value.Call("add", m.getInternalObject())
 }
 
 func (obj *Scene) Remove(m js.Value) {
@@ -43,14 +43,11 @@ func (obj *Scene) UpdateMatrix() {
 }
 
 func (obj *Scene) SetPosition(v Vector3) {
-	x, y, z := v.Coords()
-	obj.Get("position").Call("set", x, y, z)
+	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *Scene) SetRotation(v Euler) {
-	x, y, z := v.Angles()
-	order := v.GetOrder()
-	obj.Get("rotation").Call("set", x, y, z,order)
+func (obj *Scene) SetRotation(euler Euler) {
+	obj.Get("rotation").Call("copy", euler.Value)
 }
 
 func (obj *Scene) GetPosition() Vector3 {

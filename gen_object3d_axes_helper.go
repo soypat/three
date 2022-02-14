@@ -11,11 +11,11 @@ import "syscall/js"
 var _ Object3D = &AxesHelper{}
 
 func (obj *AxesHelper) ApplyMatrix4(matrix *Matrix4) {
-	obj.Call("applyMatrix4", matrix)
+	obj.Call("applyMatrix4", matrix.Value)
 }
 
 func (obj *AxesHelper) Add(m Object3D) {
-	obj.Value.Call("add", m)
+	obj.Value.Call("add", m.getInternalObject())
 }
 
 func (obj *AxesHelper) Remove(m js.Value) {
@@ -43,14 +43,11 @@ func (obj *AxesHelper) UpdateMatrix() {
 }
 
 func (obj *AxesHelper) SetPosition(v Vector3) {
-	x, y, z := v.Coords()
-	obj.Get("position").Call("set", x, y, z)
+	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *AxesHelper) SetRotation(v Euler) {
-	x, y, z := v.Angles()
-	order := v.GetOrder()
-	obj.Get("rotation").Call("set", x, y, z,order)
+func (obj *AxesHelper) SetRotation(euler Euler) {
+	obj.Get("rotation").Call("copy", euler.Value)
 }
 
 func (obj *AxesHelper) GetPosition() Vector3 {
