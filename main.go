@@ -69,6 +69,9 @@ func objectify(Struct interface{}) js.Value {
 			continue
 		}
 		fv := vi.Field(i)
+		if fv.IsZero() {
+			continue
+		}
 		switch field.Type.Kind() {
 		case reflect.Float64:
 			obj.Set(tag, fv.Float())

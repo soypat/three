@@ -16,8 +16,8 @@ type BufferAttribute struct {
 }
 
 // NewBufferAttribute creates a new BufferAttribute
-func NewBufferAttribute(data []float32, itemSize int) *BufferAttribute {
-	return &BufferAttribute{
+func NewBufferAttribute(data []float32, itemSize int) BufferAttribute {
+	return BufferAttribute{
 		Value: three.Get("BufferAttribute").New(float32ToArray(data), itemSize),
 	}
 }
