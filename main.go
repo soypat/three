@@ -1,9 +1,11 @@
 package three
 
 import (
+	"fmt"
 	"reflect"
 	"syscall/js"
 	"time"
+	"unsafe"
 )
 
 var (
@@ -50,6 +52,9 @@ func getModule(namespace string) js.Value {
 	panic("three:failed to get " + namespace + " namespace from THREE and global namespace")
 }
 
+// objectify converts a struct with `js` field tags to
+// a javascript Object type with the non-zero, non-nil
+// fields set to the struct's values.
 func objectify(Struct interface{}) js.Value {
 	v := reflect.ValueOf(Struct)
 	vi := reflect.Indirect(v)
@@ -91,4 +96,25 @@ func objectify(Struct interface{}) js.Value {
 		}
 	}
 	return obj
+}
+
+// float32ToArray converts a float32 slice to javascript Float32Array TypedArray.
+func float32ToArray(data []float32) js.Value {
+	const sizeofFloat32 = 4 // number of bytes in float32.
+	// Get the slice header
+	header := *(*reflect.SliceHeader)(unsafe.Pointer(&data))
+
+	// The length and capacity of the slice are different.
+	header.Len *= sizeofFloat32
+	header.Cap *= sizeofFloat32
+
+	// Convert slice header to an []byte
+	src := *(*[]byte)(unsafe.Pointer(&header))
+
+	dst := js.Global().Get("Uint8Array").New(header.Len)
+	n := js.CopyBytesToJS(dst, src)
+	if n != len(src) {
+		panic(fmt.Sprintf("bad cast. copied %d bytes of %d bytes (%d words). SliceHeader: %+v", n, len(src), len(data), header))
+	}
+	return js.Global().Get("Float32Array").New(dst.Get("buffer"))
 }

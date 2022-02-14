@@ -13,6 +13,6 @@ type AmbientLight struct {
 
 func NewAmbientLight(color *Color, intensity float64) *AmbientLight {
 	return &AmbientLight{
-		Value: three.Get("AmbientLight").New(color, intensity),
+		Value: three.Get("AmbientLight").New(color.Value, intensity),
 	}
 }

@@ -1,6 +1,8 @@
 package three
 
-import "syscall/js"
+import (
+	"syscall/js"
+)
 
 // BufferAttribute stores data for an attribute (such as vertex positions, face indices, normals, colors, UVs, and any custom attributes) associated with a BufferGeometry, which allows for more efficient passing of data to the GPU.
 type BufferAttribute struct {
@@ -16,7 +18,7 @@ type BufferAttribute struct {
 // NewBufferAttribute creates a new BufferAttribute
 func NewBufferAttribute(data []float32, itemSize int) *BufferAttribute {
 	return &BufferAttribute{
-		Value: three.Get("BufferAttribute").New(data, itemSize),
+		Value: three.Get("BufferAttribute").New(float32ToArray(data), itemSize),
 	}
 }
 

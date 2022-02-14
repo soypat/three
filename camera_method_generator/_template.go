@@ -19,7 +19,7 @@ func (obj {{ .Type }}) Clone() {{ .Type }} {
 // Copy the properties from the source camera into this one.
 func (obj {{ .Type }}) Copy(src {{ .Type}}, recursive bool) {{ .Type }} {
 	return {{ .Type }}{
-		Value: obj.Call("copy", src, recursive),
+		Value: obj.Call("copy", src.getInternalObject(), recursive),
 	}
 }
 
@@ -27,7 +27,7 @@ func (obj {{ .Type }}) Copy(src {{ .Type}}, recursive bool) {{ .Type }} {
 // in which the camera is looking. (Note: A camera looks down its local, negative z-axis).
 func (obj {{ .Type }}) GetWorldDirection(target Vector3) Vector3 {
 	return Vector3{
-		Value: obj.Call("getWorldDirection", target),
+		Value: obj.Call("getWorldDirection", target.Value),
 	}
 }
 
@@ -36,14 +36,11 @@ func (obj {{ .Type }}) getInternalObject() js.Value {
 }
 
 func (obj {{ .Type }}) SetPosition(v Vector3) {
-	x, y, z := v.Coords()
-	obj.Get("position").Call("set", x, y, z)
+	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj {{ .Type }}) SetRotation(v Euler) {
-	x, y, z := v.Angles()
-	order := v.GetOrder()
-	obj.Get("rotation").Call("set", x, y, z,order)
+func (obj {{ .Type }}) SetRotation(euler Euler) {
+	obj.Get("rotation").Call("copy", euler.Value)
 }
 
 // SetUp sets the up direction for the camera.

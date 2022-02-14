@@ -1,5 +1,3 @@
-//go:build TODO
-
 package three
 
 //go:generate go run material_method_generator/main.go -materialName PointsMaterial -materialSlug points_material
@@ -7,11 +5,12 @@ package three
 import "syscall/js"
 
 type PointsMaterial struct {
-	*js.Object
+	js.Value
 }
 
 func NewPointsMaterial(params *MaterialParameters) *PointsMaterial {
+	v := objectify(params)
 	return &PointsMaterial{
-		Object: three.Get("PointsMaterial").New(params.Object),
+		Value: three.Get("PointsMaterial").New(v),
 	}
 }

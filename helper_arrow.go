@@ -1,5 +1,3 @@
-//go:build TODO
-
 package three
 
 //go:generate go run object3d_method_generator/main.go -typeName ArrowHelper -typeSlug arrow_helper
@@ -7,12 +5,11 @@ package three
 import "syscall/js"
 
 type ArrowHelper struct {
-	*js.Object
-
-	Origin Vector3 `js:"position"`
-	Line   Line    `js:"line"`
-	// Quaternion Quaternion `js:"quaternion"`
-	Cone Mesh `js:"cone"`
+	// Origin Vector3 `js:"position"`
+	// Line   Line    `js:"line"`
+	// // Quaternion Quaternion `js:"quaternion"`
+	// Cone Mesh `js:"cone"`
+	js.Value
 }
 
 type ArrowHelperParameters struct {
@@ -32,11 +29,11 @@ func NewArrowHelper(params *ArrowHelperParameters) *ArrowHelper {
 	if params == nil {
 		params = &ArrowHelperParameters{}
 	}
-	novec := Vector3{}
-	if params.Dir == novec {
+
+	if !params.Dir.Truthy() {
 		params.Dir = NewVector3(0, 0, 1)
 	}
-	if params.Origin == novec {
+	if !params.Origin.Truthy() {
 		params.Origin = NewVector3(0, 0, 0)
 	}
 	if params.Length == 0 {
@@ -44,7 +41,6 @@ func NewArrowHelper(params *ArrowHelperParameters) *ArrowHelper {
 	}
 
 	if params.Color == nil {
-
 		params.Color = NewColorHex(0xffff00)
 	}
 	if params.HeadLength == 0 {
@@ -55,7 +51,7 @@ func NewArrowHelper(params *ArrowHelperParameters) *ArrowHelper {
 	}
 
 	return &ArrowHelper{
-		Object: three.Get("ArrowHelper").New(
+		Value: three.Get("ArrowHelper").New(
 			params.Dir,
 			params.Origin,
 			params.Length,
@@ -67,18 +63,18 @@ func NewArrowHelper(params *ArrowHelperParameters) *ArrowHelper {
 }
 
 func (g ArrowHelper) SetColor(color Color) {
-	g.Object.Call("setColor", color)
+	g.Value.Call("setColor", color)
 }
 
 func (g ArrowHelper) SetLength(length float64, head *ArrowHeadParameters) {
 	if head == nil {
-		g.Object.Call("setColor", length)
+		g.Value.Call("setColor", length)
 		return
 	}
-	g.Object.Call("setColor", length, head.HeadLength, head.HeadWidth)
+	g.Value.Call("setColor", length, head.HeadLength, head.HeadWidth)
 }
 
 // SetDirection Sets the desired direction. Must be a unit vector.
 func (g ArrowHelper) SetDirection(dir Vector3) {
-	g.Object.Call("setDirection", dir)
+	g.Value.Call("setDirection", dir)
 }

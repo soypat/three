@@ -8,9 +8,9 @@ type MeshLambertMaterial struct {
 	js.Value
 }
 
-func NewMeshLambertMaterial(params *MaterialParameters) *MeshLambertMaterial {
+func NewMeshLambertMaterial(params *MaterialParameters) MeshLambertMaterial {
 	v := objectify(params)
-	return &MeshLambertMaterial{
+	return MeshLambertMaterial{
 		Value: three.Get("MeshLambertMaterial").New(v),
 	}
 }
