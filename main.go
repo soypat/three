@@ -57,6 +57,9 @@ func getModule(namespace string) js.Value {
 // fields set to the struct's values.
 func objectify(Struct interface{}) js.Value {
 	v := reflect.ValueOf(Struct)
+	if v.Kind() == reflect.Ptr && v.IsNil() {
+		return js.Null()
+	}
 	vi := reflect.Indirect(v)
 	if vi.Kind() != reflect.Struct {
 		panic("expected struct input to objectify")
