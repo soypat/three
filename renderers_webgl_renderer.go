@@ -7,10 +7,16 @@ type WebGLRenderer struct {
 	js.Value
 }
 
+type WebGLRendererParam struct {
+	// DOM node corresponding to canvas element where WebGL visualization will render.
+	Canvas js.Value `js:"canvas"`
+}
+
 // WebGLRenderer creates an WebGLRenderer instance.
-func NewWebGLRenderer() WebGLRenderer {
+func NewWebGLRenderer(params *WebGLRendererParam) WebGLRenderer {
+	v := objectify(params)
 	return WebGLRenderer{
-		Value: three.Get("WebGLRenderer").New(),
+		Value: three.Get("WebGLRenderer").New(v),
 	}
 }
 

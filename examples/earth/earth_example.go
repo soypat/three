@@ -45,7 +45,7 @@ func main() {
 	ambLight := three.NewAmbientLight(three.NewColorHex(0xbbbbbb), 0.4)
 	scene.Add(ambLight)
 
-	renderer = three.NewWebGLRenderer()
+	renderer = three.NewWebGLRenderer(&three.WebGLRendererParam{})
 	renderer.SetPixelRatio(devicePixelRatio)
 	renderer.SetSize(windowWidth, windowHeight, true)
 	rendererElement := renderer.Get("domElement")
