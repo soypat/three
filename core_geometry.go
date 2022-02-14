@@ -3,6 +3,7 @@ package three
 import "syscall/js"
 
 type Geometry interface {
+	objecter
 	ApplyMatrix4(matrix *Matrix4)
 	RotateX()
 	RotateY()
@@ -28,6 +29,4 @@ type Geometry interface {
 	// Clone()
 	// Copy(source Object3D)
 	Dispose()
-
-	getInternalObject() js.Value
 }

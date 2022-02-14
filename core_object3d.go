@@ -2,7 +2,12 @@ package three
 
 import "syscall/js"
 
+type objecter interface {
+	getInternalObject() js.Value
+}
+
 type Object3D interface {
+	objecter
 	ApplyMatrix4(matrix *Matrix4)
 	Add(Object3D)
 	Remove(js.Value)
@@ -10,8 +15,6 @@ type Object3D interface {
 	GetObjectById(id int) js.Value
 	// Copy(source Object3D, recursive bool)
 	UpdateMatrix()
-
-	getInternalObject() js.Value
 }
 
 // OnBeforeRender()

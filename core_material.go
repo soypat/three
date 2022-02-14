@@ -3,14 +3,13 @@ package three
 import "syscall/js"
 
 type Material interface {
+	objecter
 	OnBeforeCompile()
 	SetValues(values MaterialParameters)
 	ToJSON(meta interface{}) js.Value
 	Clone()
 	Copy(source Object3D)
 	Dispose()
-
-	getInternalObject() js.Value
 }
 
 // Side defines which side of faces will be rendered - front, back or both. Default is FrontSide.
