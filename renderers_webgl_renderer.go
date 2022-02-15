@@ -32,3 +32,7 @@ func (r WebGLRenderer) SetPixelRatio(ratio float64) {
 func (r WebGLRenderer) Render(scene *Scene, camera Camera) {
 	r.Call("render", scene.Value, camera.getInternalObject())
 }
+
+func (r WebGLRenderer) DomElement() js.Value {
+	return r.Get("domElement")
+}

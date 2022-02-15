@@ -76,6 +76,10 @@ func objectify(Struct interface{}) js.Value {
 			// Skip zero values and nil pointers.
 			continue
 		}
+		if fv.Type() == reflect.TypeOf(js.Value{}) {
+			obj.Set(tag, fv.Interface().(js.Value))
+			continue
+		}
 		switch field.Type.Kind() {
 		case reflect.Float64:
 			obj.Set(tag, fv.Float())
