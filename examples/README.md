@@ -1,7 +1,11 @@
 # Examples
 
 ## Running examples
-Requirements: Install [`wasmserve`](https://github.com/hajimehoshi/wasmserve) and [Go](https://go.dev/).
+Requirements: Install [`wasmserve`](https://github.com/hajimehoshi/wasmserve) and [Go](https://go.dev/). You can install wasmserve with Go:
+
+```shell
+go install github.com/hajimehoshi/wasmserve@latest
+```
 
 1. First step is to run  inside an example directory (each directory is a self contained project). 
     ```shell
