@@ -1,7 +1,7 @@
 package three
 
 import (
-	"fmt"
+	"strconv"
 
 	"syscall/js"
 )
@@ -26,7 +26,10 @@ func NewColor(color string) *Color {
 
 // NewColorRGB returns a new three.Color for the given RGB values in 0..255 range.
 func NewColorRGB(r, g, b uint8) *Color {
-	rgb := fmt.Sprintf("rgb(%d, %d, %d)", r, g, b)
+	rs := strconv.Itoa(int(r))
+	gs := strconv.Itoa(int(g))
+	bs := strconv.Itoa(int(b))
+	rgb := "rgb(" + rs + ", " + gs + ", " + bs + ")"
 	return NewColor(rgb)
 }
 

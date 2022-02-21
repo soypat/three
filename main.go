@@ -1,7 +1,6 @@
 package three
 
 import (
-	"fmt"
 	"reflect"
 	"syscall/js"
 	"time"
@@ -129,7 +128,7 @@ func float32ToArray(data []float32) js.Value {
 	dst := js.Global().Get("Uint8Array").New(header.Len)
 	n := js.CopyBytesToJS(dst, src)
 	if n != len(src) {
-		panic(fmt.Sprintf("bad cast. copied %d bytes of %d bytes (%d words). SliceHeader: %+v", n, len(src), len(data), header))
+		panic("bad float32->Array cast")
 	}
 	return js.Global().Get("Float32Array").New(dst.Get("buffer"))
 }

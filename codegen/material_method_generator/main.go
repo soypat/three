@@ -41,24 +41,4 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("Generated file: %s", p.Filename())
-	// filePath := fmt.Sprintf("./gen_material_%s.go", *materialSlug)
-
-	// f, err := os.Create(filePath)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// defer f.Close()
-
-	// err = template.Must(template.New("").Parse(materialTemplate)).Execute(f, struct {
-	// 	MaterialName string
-	// 	MaterialSlug string
-	// }{
-	// 	MaterialName: *materialName,
-	// 	MaterialSlug: *materialSlug,
-	// })
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// log.Printf("Generated file: %s", filePath)
 }
