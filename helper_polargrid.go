@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run object3d_method_generator/main.go -typeName PolarGridHelper -typeSlug polargrid_helper
+//go:generate go run codegen/object3d_method_generator/main.go -typeName PolarGridHelper -typeSlug polargrid_helper
 
 import "syscall/js"
 

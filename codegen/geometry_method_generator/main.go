@@ -1,4 +1,5 @@
 // The following directive is necessary to make the package coherent:
+//go:build ignore
 // +build ignore
 
 package main
@@ -7,16 +8,17 @@ import (
 	_ "embed"
 	"flag"
 	"log"
+	"strings"
 
-	"github.com/soypat/three/generator"
+	"github.com/soypat/three/codegen/generator"
 )
 
 //go:embed _template.go
 var geometryTemplate string
 
 var (
-	geometryType = flag.String("geometryType", "", "Name of class that extends Geometry e.g. CircleGeometry")
-	geometrySlug = flag.String("geometrySlug", "", "Slugified name of class e.g. circle_geometry")
+	geometryType = flag.String("typeName", "", "Name of class that extends Geometry e.g. CircleGeometry")
+	geometrySlug = flag.String("typeSlug", "", "Slugified name of class e.g. circle_geometry")
 )
 
 func main() {
@@ -31,7 +33,7 @@ func main() {
 	p := generator.Parameters{
 		FilePrefix: "gen_geometry",
 		Template:   geometryTemplate,
-		Slug:       *geometrySlug,
+		Slug:       strings.TrimSuffix(*geometrySlug, "_geometry"),
 		Type:       *geometryType,
 	}
 	err := generator.Execute(p)

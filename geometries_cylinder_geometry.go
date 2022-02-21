@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run geometry_method_generator/main.go -geometryType CylinderGeometry -geometrySlug cylinder_geometry
+//go:generate go run codegen/geometry_method_generator/main.go -typeName CylinderGeometry -typeSlug cylinder_geometry
 
 import (
 	"math"

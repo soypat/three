@@ -9,7 +9,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/soypat/three/generator"
+	"github.com/soypat/three/codegen/generator"
 )
 
 //go:embed _template.go

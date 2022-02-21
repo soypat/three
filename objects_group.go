@@ -2,7 +2,7 @@
 
 package three
 
-//go:generate go run object3d_method_generator/main.go -typeName Group -typeSlug group
+//go:generate go run codegen/object3d_method_generator/main.go -typeName Group -typeSlug group
 
 import "syscall/js"
 

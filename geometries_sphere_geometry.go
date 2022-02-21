@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run geometry_method_generator/main.go -geometryType SphereGeometry -geometrySlug sphere_geometry
+//go:generate go run codegen/geometry_method_generator/main.go -typeName SphereGeometry -typeSlug sphere_geometry
 
 import (
 	"math"

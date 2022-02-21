@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run geometry_method_generator/main.go -geometryType BoxGeometry -geometrySlug box_geometry
+//go:generate go run codegen/geometry_method_generator/main.go -typeName BoxGeometry -typeSlug box_geometry
 
 import "syscall/js"
 

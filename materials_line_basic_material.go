@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run material_method_generator/main.go -materialName LineBasicMaterial -materialSlug line_basic_material
+//go:generate go run codegen/material_method_generator/main.go -typeName LineBasicMaterial -typeSlug line_basic_material
 
 import "syscall/js"
 

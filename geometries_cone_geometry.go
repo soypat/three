@@ -2,7 +2,7 @@
 
 package three
 
-//go:generate go run geometry_method_generator/main.go -geometryType ConeGeometry -geometrySlug cone_geometry
+//go:generate go run codegen/geometry_method_generator/main.go -typeName ConeGeometry -typeSlug cone_geometry
 
 import (
 	"math"

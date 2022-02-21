@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run object3d_method_generator/main.go -typeName DirectionalLight -typeSlug directional_light
+//go:generate go run codegen/object3d_method_generator/main.go -typeName DirectionalLight -typeSlug directional_light
 
 import "syscall/js"
 

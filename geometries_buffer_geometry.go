@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run geometry_method_generator/main.go -geometryType BufferGeometry -geometrySlug buffer_geometry
+//go:generate go run codegen/geometry_method_generator/main.go -typeName BufferGeometry -typeSlug buffer_geometry
 
 import "syscall/js"
 

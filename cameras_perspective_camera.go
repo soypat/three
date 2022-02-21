@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run camera_method_generator/main.go -typeName PerspectiveCamera -typeSlug perspective_camera
+//go:generate go run codegen/camera_method_generator/main.go -typeName PerspectiveCamera -typeSlug perspective_camera
 
 import "syscall/js"
 

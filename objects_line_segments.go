@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run object3d_method_generator/main.go -typeName LineSegments -typeSlug line_segments
+//go:generate go run codegen/object3d_method_generator/main.go -typeName LineSegments -typeSlug line_segments
 
 import "syscall/js"
 

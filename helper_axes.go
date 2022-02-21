@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run object3d_method_generator/main.go -typeName AxesHelper -typeSlug axes_helper
+//go:generate go run codegen/object3d_method_generator/main.go -typeName AxesHelper -typeSlug axes_helper
 
 import "syscall/js"
 

@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run material_method_generator/main.go -materialName SpriteMaterial -materialSlug sprite_material
+//go:generate go run codegen/material_method_generator/main.go -typeName SpriteMaterial -typeSlug sprite_material
 
 import "syscall/js"
 

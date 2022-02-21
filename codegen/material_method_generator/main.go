@@ -8,31 +8,32 @@ import (
 	_ "embed"
 	"flag"
 	"log"
+	"strings"
 
-	"github.com/soypat/three/generator"
+	"github.com/soypat/three/codegen/generator"
 )
 
 //go:embed _template.go
 var materialTemplate string
 
 var (
-	materialName = flag.String("materialName", "", "Name of class that extends Material e.g. MeshBasicMaterial")
-	materialSlug = flag.String("materialSlug", "", "Slugified name of class e.g. mesh_basic_material")
+	materialName = flag.String("typeName", "", "Name of class that extends Material e.g. MeshBasicMaterial")
+	materialSlug = flag.String("typeSlug", "", "Slugified name of class e.g. mesh_basic_material")
 )
 
 func main() {
 	flag.Parse()
 
 	if *materialName == "" {
-		log.Fatal("a material name argument must be provided (e.g. -materialName MeshBasicMaterial)")
+		log.Fatal("a material name argument must be provided (e.g. -typeName MeshBasicMaterial)")
 	}
 	if *materialSlug == "" {
-		log.Fatal("a material slug argument must be provided (e.g. -materialSlug mesh_basic_material)")
+		log.Fatal("a material slug argument must be provided (e.g. -typeSlug mesh_basic_material)")
 	}
 	p := generator.Parameters{
 		FilePrefix: "gen_material",
 		Template:   materialTemplate,
-		Slug:       *materialSlug,
+		Slug:       strings.TrimSuffix(*materialSlug, "_material"),
 		Type:       *materialName,
 	}
 	err := generator.Execute(p)

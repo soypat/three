@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run material_method_generator/main.go -materialName PointsMaterial -materialSlug points_material
+//go:generate go run codegen/material_method_generator/main.go -typeName PointsMaterial -typeSlug points_material
 
 import "syscall/js"
 

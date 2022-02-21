@@ -5,7 +5,7 @@ import "syscall/js"
 type Material interface {
 	objecter
 	OnBeforeCompile()
-	SetValues(values MaterialParameters)
+	SetValues(values *MaterialParameters)
 	ToJSON(meta interface{}) js.Value
 	Clone()
 	Copy(source Object3D)

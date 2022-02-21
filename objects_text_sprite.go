@@ -2,7 +2,7 @@
 
 package three
 
-//go:generate go run object3d_method_generator/main.go -typeName TextSprite -typeSlug text_sprite
+//go:generate go run codegen/object3d_method_generator/main.go -typeName TextSprite -typeSlug text_sprite
 
 import "syscall/js"
 

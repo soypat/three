@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run material_method_generator/main.go -materialName MeshPhysicalMaterial -materialSlug mesh_physical_material
+//go:generate go run codegen/material_method_generator/main.go -typeName MeshPhysicalMaterial -typeSlug mesh_physical_material
 
 import "syscall/js"
 

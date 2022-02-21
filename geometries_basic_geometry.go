@@ -2,7 +2,7 @@
 
 package three
 
-//go:generate go run geometry_method_generator/main.go -geometryType BasicGeometry -geometrySlug basic_geometry
+//go:generate go run codegen/geometry_method_generator/main.go -typeName BasicGeometry -typeSlug basic_geometry
 
 import "syscall/js"
 

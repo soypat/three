@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run object3d_method_generator/main.go -typeName Fog -typeSlug fog
+//go:generate go run codegen/object3d_method_generator/main.go -typeName Fog -typeSlug fog
 
 import "syscall/js"
 

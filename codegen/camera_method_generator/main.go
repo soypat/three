@@ -8,8 +8,9 @@ import (
 	_ "embed"
 	"flag"
 	"log"
+	"strings"
 
-	"github.com/soypat/three/generator"
+	"github.com/soypat/three/codegen/generator"
 )
 
 //go:embed _template.go
@@ -32,7 +33,7 @@ func main() {
 	p := generator.Parameters{
 		FilePrefix: "gen_camera",
 		Template:   cameraTemplate,
-		Slug:       *typeSlug,
+		Slug:       strings.TrimSuffix(*typeSlug, "_camera"),
 		Type:       *typeName,
 	}
 	err := generator.Execute(p)
