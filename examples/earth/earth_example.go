@@ -2,7 +2,9 @@ package main
 
 import (
 	"syscall/js"
+	"time"
 
+	"github.com/soypat/gwasm"
 	"github.com/soypat/three"
 )
 
@@ -24,8 +26,8 @@ const (
 
 func main() {
 	// THREE Initialization.
-	three.AddScript("https://threejs.org/build/three.js", "THREE")
-	three.AddScript("assets/trackball_controls.js", "TrackballControls")
+	gwasm.AddScript("https://threejs.org/build/three.js", "THREE", time.Second)
+	gwasm.AddScript("assets/trackball_controls.js", "TrackballControls", time.Second)
 	three.Init()
 
 	document := js.Global().Get("document")

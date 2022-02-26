@@ -1,9 +1,10 @@
 package three
 
 import (
-	"strconv"
-
+	"image/color"
 	"syscall/js"
+
+	"github.com/soypat/gwasm"
 )
 
 // Color - represents a color.
@@ -26,10 +27,7 @@ func NewColor(color string) *Color {
 
 // NewColorRGB returns a new three.Color for the given RGB values in 0..255 range.
 func NewColorRGB(r, g, b uint8) *Color {
-	rs := strconv.Itoa(int(r))
-	gs := strconv.Itoa(int(g))
-	bs := strconv.Itoa(int(b))
-	rgb := "rgb(" + rs + ", " + gs + ", " + bs + ")"
+	rgb := gwasm.JSColor(color.RGBA{R: r, G: g, B: b, A: 0xff})
 	return NewColor(rgb)
 }
 
