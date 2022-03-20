@@ -27,7 +27,7 @@ func NewEuler(x, y, z float64, order string) Euler {
 
 // Copy copies value of euler to receiver.
 func (e Euler) Copy(src Euler) {
-	e.Call("copy", src)
+	e.Call("copy", src.Value)
 }
 
 func (e Euler) Reorder(newOrder string) {
