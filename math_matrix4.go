@@ -58,7 +58,7 @@ func (m *Matrix4) ExtractRotation(a *Matrix4) (this *Matrix4) {
 //  2xz-2yw      2yz+2xw    1-2x²-2y²  0
 //  0            0          0          1
 func (m *Matrix4) MakeRotationFromQuaternion(q Quaternion) (this *Matrix4) {
-	m.Value.Call("makeRotationFromQuaternion", q)
+	m.Value.Call("makeRotationFromQuaternion", q.Value)
 	return m
 }
 

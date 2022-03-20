@@ -1,18 +1,24 @@
 package three
 
 import (
+	"errors"
 	"syscall/js"
 
 	"github.com/soypat/gwasm"
 )
 
-var three = js.Global().Get("THREE")
+// three is the handle to the global instance of THREE object.
+// Init() must be called before using three.
+var three js.Value
 
-func Init() {
+// Init must be called after three.js script has been loaded so that
+// everything works properly.
+func Init() error {
 	three = js.Global().Get("THREE")
 	if !three.Truthy() {
-		panic("unable to find THREE in global namespace. Have you added the script?")
+		return errors.New("unable to find THREE in global namespace. Have you added the script?")
 	}
+	return nil
 }
 
 // getModule gets a module or property added to THREE or globalThis.

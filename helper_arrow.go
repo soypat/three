@@ -52,10 +52,10 @@ func NewArrowHelper(params *ArrowHelperParameters) *ArrowHelper {
 
 	return &ArrowHelper{
 		Value: three.Get("ArrowHelper").New(
-			params.Dir,
-			params.Origin,
+			params.Dir.Value,
+			params.Origin.Value,
 			params.Length,
-			params.Color,
+			params.Color.Value,
 			params.HeadLength,
 			params.HeadWidth,
 		),
@@ -63,7 +63,7 @@ func NewArrowHelper(params *ArrowHelperParameters) *ArrowHelper {
 }
 
 func (g ArrowHelper) SetColor(color Color) {
-	g.Value.Call("setColor", color)
+	g.Value.Call("setColor", color.Value)
 }
 
 func (g ArrowHelper) SetLength(length float64, head *ArrowHeadParameters) {
@@ -76,5 +76,5 @@ func (g ArrowHelper) SetLength(length float64, head *ArrowHeadParameters) {
 
 // SetDirection Sets the desired direction. Must be a unit vector.
 func (g ArrowHelper) SetDirection(dir Vector3) {
-	g.Value.Call("setDirection", dir)
+	g.Value.Call("setDirection", dir.Value)
 }
