@@ -16,14 +16,14 @@ func NewMatrix4() *Matrix4 {
 }
 
 // Sets this matrix to the transformation composed of position, quaternion and scale.
-func (m *Matrix4) Compose(position Vector3, q Quaternion, scale Vector3) (this *Matrix4) {
+func (m *Matrix4) Compose(scale, position Vector3, q Quaternion) (this *Matrix4) {
 	m.Value.Call("compose", position.Value, q.Value, scale.Value)
 	return m
 }
 
 // Decomposes this matrix into its position, quaternion and scale components.
 // Note: Not all matrices are decomposable in this way. For example, if an object has a non-uniformly scaled parent, then the object's world matrix may not be decomposable, and this method may not be appropriate.
-func (m *Matrix4) Decompose(position Vector3, q Quaternion, scale Vector3) {
+func (m *Matrix4) Decompose(scale, position Vector3, q Quaternion) {
 	m.Value.Call("decompose", position.Value, q.Value, scale.Value)
 }
 

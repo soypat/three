@@ -32,5 +32,5 @@ func (v Vector2) Normalize() Vector2 {
 }
 
 func (v Vector2) DistanceTo(v1 Vector2) float64 {
-	return v.Call("ditanceTo", v1).Float()
+	return v.Call("ditanceTo", v1.Value).Float()
 }

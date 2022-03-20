@@ -90,19 +90,19 @@ func (q Quaternion) Random() Quaternion {
 
 // RotateTowards Rotates this quaternion by a given angular step to the defined quaternion a.
 // The method ensures that the final quaternion will not overshoot a.
-func (q Quaternion) RotateTowards(a Quaternion, step float64) Quaternion {
+func (q Quaternion) RotateTowards(step float64, a Quaternion) Quaternion {
 	return Quaternion{Value: q.Value.Call("rotateTowards", a.Value, step)}
 }
 
 // Slerp Handles the spherical linear interpolation between quaternions.
 // t represents the amount of rotation between this quaternion (where t is 0) and qb (where t is 1).
 // This quaternion is set to the result. Also see the static version of the slerp below.
-func (q Quaternion) Slerp(qb Quaternion, t float64) Quaternion {
+func (q Quaternion) Slerp(t float64, qb Quaternion) Quaternion {
 	return Quaternion{Value: q.Value.Call("slerp", qb.Value, t)}
 }
 
 // SlerpQuaternions Performs a spherical linear interpolation between the given quaternions and stores the result in this quaternion.
-func (q Quaternion) SlerpQuaternions(qa, qb Quaternion, t float64) (this Quaternion) {
+func (q Quaternion) SlerpQuaternions(t float64, qa, qb Quaternion) (this Quaternion) {
 	q.Value.Call("slerpQuaternions", qa.Value, qb.Value, t)
 	return q
 }
@@ -117,7 +117,7 @@ func (q Quaternion) Set(x, y, z, w float64) Quaternion {
 // SetFromAxisAngle sets this quaternion from rotation specified by axis and angle.
 // Adapted from the method here http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
 // Axis is assumed to be normalized, angle is in radians.
-func (q Quaternion) SetFromAxisAngle(axis Vector3, angle float64) Quaternion {
+func (q Quaternion) SetFromAxisAngle(angle float64, axis Vector3) Quaternion {
 	return Quaternion{
 		Value: q.Value.Call("setFromAxisAngle", axis.Value, angle),
 	}

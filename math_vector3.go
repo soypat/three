@@ -35,14 +35,14 @@ func (v Vector3) AddScaledVector(f float64, a Vector3) (this Vector3) {
 }
 
 // ApplyAxisAngle Applies a rotation specified by a normalized axis and an angle to this vector.
-func (v Vector3) ApplyAxisAngle(axis Vector3, angle float64) (this Vector3) {
+func (v Vector3) ApplyAxisAngle(angle float64, axis Vector3) (this Vector3) {
 	v.Call("applyAxisAngle", axis.Value, angle)
 	return v
 }
 
 // ApplyEuler transform to this vector by converting the Euler object to a Quaternion and applying.
 func (v Vector3) ApplyEuler(euler Euler) (this Vector3) {
-	v.Call("applyEuler", euler)
+	v.Call("applyEuler", euler.Value)
 	return v
 }
 
