@@ -8,9 +8,9 @@ type PointsMaterial struct {
 	js.Value
 }
 
-func NewPointsMaterial(params *MaterialParameters) *PointsMaterial {
+func NewPointsMaterial(params MaterialParameters) PointsMaterial {
 	v := objectify(params)
-	return &PointsMaterial{
+	return PointsMaterial{
 		Value: three.Get("PointsMaterial").New(v),
 	}
 }

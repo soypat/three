@@ -8,55 +8,55 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Object3D interface.
-var _ Object3D = &PolarGridHelper{}
+var _ Object3D = PolarGridHelper{}
 
-func (obj *PolarGridHelper) ApplyMatrix4(matrix *Matrix4) {
+func (obj PolarGridHelper) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
-func (obj *PolarGridHelper) Add(m Object3D) {
+func (obj PolarGridHelper) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-func (obj *PolarGridHelper) Remove(m js.Value) {
+func (obj PolarGridHelper) Remove(m js.Value) {
 	obj.Value.Call("remove", m)
 }
 
-func (obj *PolarGridHelper) GetObjectById(id int) js.Value {
+func (obj PolarGridHelper) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
 
-// func (obj *PolarGridHelper) Copy() *PolarGridHelper {
-// 	return &PolarGridHelper{Object: obj.getInternalObject().Call("copy")}
+// func (obj PolarGridHelper) Copy() PolarGridHelper {
+// 	return PolarGridHelper{Object: obj.getInternalObject().Call("copy")}
 // }
 
-func (obj *PolarGridHelper) ToJSON() js.Value {
+func (obj PolarGridHelper) ToJSON() js.Value {
 	return obj.Value.Call("toJSON")
 }
 
-func (obj *PolarGridHelper) getInternalObject() js.Value {
+func (obj PolarGridHelper) getInternalObject() js.Value {
 	return obj.Value
 }
 
-func (obj *PolarGridHelper) UpdateMatrix() {
+func (obj PolarGridHelper) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
 
-func (obj *PolarGridHelper) SetPosition(v Vector3) {
+func (obj PolarGridHelper) SetPosition(v Vector3) {
 	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *PolarGridHelper) SetRotation(euler Euler) {
+func (obj PolarGridHelper) SetRotation(euler Euler) {
 	obj.Get("rotation").Call("copy", euler.Value)
 }
 
-func (obj *PolarGridHelper) GetPosition() Vector3 {
+func (obj PolarGridHelper) GetPosition() Vector3 {
 	return Vector3{
 		Value: obj.Get("position"),
 	}
 }
 
-func (obj *PolarGridHelper) GetRotation() Euler {
+func (obj PolarGridHelper) GetRotation() Euler {
 	return Euler{
 		Value: obj.Get("rotation"),
 	}

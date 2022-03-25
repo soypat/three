@@ -8,55 +8,55 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Object3D interface.
-var _ Object3D = &AmbientLight{}
+var _ Object3D = AmbientLight{}
 
-func (obj *AmbientLight) ApplyMatrix4(matrix *Matrix4) {
+func (obj AmbientLight) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
-func (obj *AmbientLight) Add(m Object3D) {
+func (obj AmbientLight) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-func (obj *AmbientLight) Remove(m js.Value) {
+func (obj AmbientLight) Remove(m js.Value) {
 	obj.Value.Call("remove", m)
 }
 
-func (obj *AmbientLight) GetObjectById(id int) js.Value {
+func (obj AmbientLight) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
 
-// func (obj *AmbientLight) Copy() *AmbientLight {
-// 	return &AmbientLight{Object: obj.getInternalObject().Call("copy")}
+// func (obj AmbientLight) Copy() AmbientLight {
+// 	return AmbientLight{Object: obj.getInternalObject().Call("copy")}
 // }
 
-func (obj *AmbientLight) ToJSON() js.Value {
+func (obj AmbientLight) ToJSON() js.Value {
 	return obj.Value.Call("toJSON")
 }
 
-func (obj *AmbientLight) getInternalObject() js.Value {
+func (obj AmbientLight) getInternalObject() js.Value {
 	return obj.Value
 }
 
-func (obj *AmbientLight) UpdateMatrix() {
+func (obj AmbientLight) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
 
-func (obj *AmbientLight) SetPosition(v Vector3) {
+func (obj AmbientLight) SetPosition(v Vector3) {
 	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *AmbientLight) SetRotation(euler Euler) {
+func (obj AmbientLight) SetRotation(euler Euler) {
 	obj.Get("rotation").Call("copy", euler.Value)
 }
 
-func (obj *AmbientLight) GetPosition() Vector3 {
+func (obj AmbientLight) GetPosition() Vector3 {
 	return Vector3{
 		Value: obj.Get("position"),
 	}
 }
 
-func (obj *AmbientLight) GetRotation() Euler {
+func (obj AmbientLight) GetRotation() Euler {
 	return Euler{
 		Value: obj.Get("rotation"),
 	}

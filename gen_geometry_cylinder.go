@@ -10,7 +10,7 @@ import "syscall/js"
 // Compile-time check that this type implements Geometry interface.
 var _ Geometry = CylinderGeometry{}
 
-func (g CylinderGeometry) ApplyMatrix4(matrix *Matrix4) {
+func (g CylinderGeometry) ApplyMatrix4(matrix Matrix4) {
 	g.Value.Call("applyMatrix4", matrix)
 }
 
@@ -103,8 +103,8 @@ func (g CylinderGeometry) ToJSON() js.Value {
 // 	return g.Value.Call("clone")
 // }
 
-func (g CylinderGeometry) Copy(source Object3D, recursive bool) *CylinderGeometry {
-	return &CylinderGeometry{Value: g.getInternalObject().Call("copy", source.getInternalObject(), recursive)}
+func (g CylinderGeometry) Copy(source Object3D, recursive bool) CylinderGeometry {
+	return CylinderGeometry{Value: g.getInternalObject().Call("copy", source.getInternalObject(), recursive)}
 }
 
 func (g CylinderGeometry) Dispose() {

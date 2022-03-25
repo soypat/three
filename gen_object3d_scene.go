@@ -8,55 +8,55 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Object3D interface.
-var _ Object3D = &Scene{}
+var _ Object3D = Scene{}
 
-func (obj *Scene) ApplyMatrix4(matrix *Matrix4) {
+func (obj Scene) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
-func (obj *Scene) Add(m Object3D) {
+func (obj Scene) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-func (obj *Scene) Remove(m js.Value) {
+func (obj Scene) Remove(m js.Value) {
 	obj.Value.Call("remove", m)
 }
 
-func (obj *Scene) GetObjectById(id int) js.Value {
+func (obj Scene) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
 
-// func (obj *Scene) Copy() *Scene {
-// 	return &Scene{Object: obj.getInternalObject().Call("copy")}
+// func (obj Scene) Copy() Scene {
+// 	return Scene{Object: obj.getInternalObject().Call("copy")}
 // }
 
-func (obj *Scene) ToJSON() js.Value {
+func (obj Scene) ToJSON() js.Value {
 	return obj.Value.Call("toJSON")
 }
 
-func (obj *Scene) getInternalObject() js.Value {
+func (obj Scene) getInternalObject() js.Value {
 	return obj.Value
 }
 
-func (obj *Scene) UpdateMatrix() {
+func (obj Scene) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
 
-func (obj *Scene) SetPosition(v Vector3) {
+func (obj Scene) SetPosition(v Vector3) {
 	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *Scene) SetRotation(euler Euler) {
+func (obj Scene) SetRotation(euler Euler) {
 	obj.Get("rotation").Call("copy", euler.Value)
 }
 
-func (obj *Scene) GetPosition() Vector3 {
+func (obj Scene) GetPosition() Vector3 {
 	return Vector3{
 		Value: obj.Get("position"),
 	}
 }
 
-func (obj *Scene) GetRotation() Euler {
+func (obj Scene) GetRotation() Euler {
 	return Euler{
 		Value: obj.Get("rotation"),
 	}

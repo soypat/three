@@ -14,8 +14,8 @@ type Mesh struct {
 	js.Value
 }
 
-func NewMesh(geometry Geometry, material Material) *Mesh {
-	return &Mesh{
+func NewMesh(geometry Geometry, material Material) Mesh {
+	return Mesh{
 		Value: three.Get("Mesh").New(geometry.getInternalObject(), material.getInternalObject()),
 	}
 }

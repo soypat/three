@@ -8,55 +8,55 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Object3D interface.
-var _ Object3D = &Fog{}
+var _ Object3D = Fog{}
 
-func (obj *Fog) ApplyMatrix4(matrix *Matrix4) {
+func (obj Fog) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
-func (obj *Fog) Add(m Object3D) {
+func (obj Fog) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-func (obj *Fog) Remove(m js.Value) {
+func (obj Fog) Remove(m js.Value) {
 	obj.Value.Call("remove", m)
 }
 
-func (obj *Fog) GetObjectById(id int) js.Value {
+func (obj Fog) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
 
-// func (obj *Fog) Copy() *Fog {
-// 	return &Fog{Object: obj.getInternalObject().Call("copy")}
+// func (obj Fog) Copy() Fog {
+// 	return Fog{Object: obj.getInternalObject().Call("copy")}
 // }
 
-func (obj *Fog) ToJSON() js.Value {
+func (obj Fog) ToJSON() js.Value {
 	return obj.Value.Call("toJSON")
 }
 
-func (obj *Fog) getInternalObject() js.Value {
+func (obj Fog) getInternalObject() js.Value {
 	return obj.Value
 }
 
-func (obj *Fog) UpdateMatrix() {
+func (obj Fog) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
 
-func (obj *Fog) SetPosition(v Vector3) {
+func (obj Fog) SetPosition(v Vector3) {
 	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *Fog) SetRotation(euler Euler) {
+func (obj Fog) SetRotation(euler Euler) {
 	obj.Get("rotation").Call("copy", euler.Value)
 }
 
-func (obj *Fog) GetPosition() Vector3 {
+func (obj Fog) GetPosition() Vector3 {
 	return Vector3{
 		Value: obj.Get("position"),
 	}
 }
 
-func (obj *Fog) GetRotation() Euler {
+func (obj Fog) GetRotation() Euler {
 	return Euler{
 		Value: obj.Get("rotation"),
 	}

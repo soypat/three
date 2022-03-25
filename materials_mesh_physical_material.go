@@ -23,9 +23,9 @@ type MeshPhysicalMaterial struct {
 	js.Value
 }
 
-func NewMeshPhysicalMaterial(params *MaterialParameters) *MeshBasicMaterial {
+func NewMeshPhysicalMaterial(params *MaterialParameters) MeshBasicMaterial {
 	v := objectify(params)
-	return &MeshBasicMaterial{
+	return MeshBasicMaterial{
 		Value: three.Get("MeshBasicMaterial").New(v),
 	}
 }

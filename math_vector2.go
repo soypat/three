@@ -9,8 +9,8 @@ type Vector2 struct {
 	js.Value
 }
 
-func NewVector2(x, y float64) *Vector2 {
-	return &Vector2{
+func NewVector2(x, y float64) Vector2 {
+	return Vector2{
 		Value: three.Get("Vector2").New(x, y),
 	}
 }

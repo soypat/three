@@ -12,8 +12,8 @@ type Raycaster struct {
 }
 
 // NewRaycaster creates a new raycaster.
-func NewRaycaster() *Raycaster {
-	return &Raycaster{
+func NewRaycaster() Raycaster {
+	return Raycaster{
 		Value: three.Get("Raycaster").New(),
 	}
 }

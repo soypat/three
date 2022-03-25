@@ -25,10 +25,7 @@ type ArrowHeadParameters struct {
 	HeadWidth  float64
 }
 
-func NewArrowHelper(params *ArrowHelperParameters) *ArrowHelper {
-	if params == nil {
-		params = &ArrowHelperParameters{}
-	}
+func NewArrowHelper(params ArrowHelperParameters) ArrowHelper {
 
 	if !params.Dir.Truthy() {
 		params.Dir = NewVector3(0, 0, 1)
@@ -50,7 +47,7 @@ func NewArrowHelper(params *ArrowHelperParameters) *ArrowHelper {
 		params.HeadWidth = 0.2 * params.HeadLength
 	}
 
-	return &ArrowHelper{
+	return ArrowHelper{
 		Value: three.Get("ArrowHelper").New(
 			params.Dir.Value,
 			params.Origin.Value,

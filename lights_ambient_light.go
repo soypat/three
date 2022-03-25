@@ -11,8 +11,8 @@ type AmbientLight struct {
 	js.Value
 }
 
-func NewAmbientLight(color *Color, intensity float64) *AmbientLight {
-	return &AmbientLight{
+func NewAmbientLight(color *Color, intensity float64) AmbientLight {
+	return AmbientLight{
 		Value: three.Get("AmbientLight").New(color.Value, intensity),
 	}
 }

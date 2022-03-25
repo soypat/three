@@ -14,8 +14,8 @@ type Points struct {
 }
 
 // NewLine creates a new material. If Material is nil, three.js will assign a randomized material to the line o_O.
-func NewPoints(geom Geometry, material Material) *Points {
-	return &Points{
+func NewPoints(geom Geometry, material Material) Points {
+	return Points{
 		Value: three.Get("Points").New(geom.getInternalObject(), material.getInternalObject()),
 	}
 }

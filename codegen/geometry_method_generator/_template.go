@@ -10,7 +10,7 @@ import "syscall/js"
 // Compile-time check that this type implements Geometry interface.
 var _ Geometry = {{ .Type }}{}
 
-func (g {{ .Type }}) ApplyMatrix4(matrix *Matrix4) {
+func (g {{ .Type }}) ApplyMatrix4(matrix Matrix4) {
 	g.Value.Call("applyMatrix4", matrix)
 }
 
@@ -103,8 +103,8 @@ func (g {{ .Type }}) ToJSON() js.Value {
 // 	return g.Value.Call("clone")
 // }
 
-func (g {{ .Type }}) Copy(source Object3D, recursive bool) *{{ .Type }} {
-	return &{{ .Type }}{Value: g.getInternalObject().Call("copy", source.getInternalObject(), recursive)}
+func (g {{ .Type }}) Copy(source Object3D, recursive bool) {{ .Type }} {
+	return {{ .Type }}{Value: g.getInternalObject().Call("copy", source.getInternalObject(), recursive)}
 }
 
 func (g {{ .Type}}) Dispose() {

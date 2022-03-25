@@ -8,55 +8,55 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Object3D interface.
-var _ Object3D = &ArrowHelper{}
+var _ Object3D = ArrowHelper{}
 
-func (obj *ArrowHelper) ApplyMatrix4(matrix *Matrix4) {
+func (obj ArrowHelper) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
-func (obj *ArrowHelper) Add(m Object3D) {
+func (obj ArrowHelper) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-func (obj *ArrowHelper) Remove(m js.Value) {
+func (obj ArrowHelper) Remove(m js.Value) {
 	obj.Value.Call("remove", m)
 }
 
-func (obj *ArrowHelper) GetObjectById(id int) js.Value {
+func (obj ArrowHelper) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
 
-// func (obj *ArrowHelper) Copy() *ArrowHelper {
-// 	return &ArrowHelper{Object: obj.getInternalObject().Call("copy")}
+// func (obj ArrowHelper) Copy() ArrowHelper {
+// 	return ArrowHelper{Object: obj.getInternalObject().Call("copy")}
 // }
 
-func (obj *ArrowHelper) ToJSON() js.Value {
+func (obj ArrowHelper) ToJSON() js.Value {
 	return obj.Value.Call("toJSON")
 }
 
-func (obj *ArrowHelper) getInternalObject() js.Value {
+func (obj ArrowHelper) getInternalObject() js.Value {
 	return obj.Value
 }
 
-func (obj *ArrowHelper) UpdateMatrix() {
+func (obj ArrowHelper) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
 
-func (obj *ArrowHelper) SetPosition(v Vector3) {
+func (obj ArrowHelper) SetPosition(v Vector3) {
 	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *ArrowHelper) SetRotation(euler Euler) {
+func (obj ArrowHelper) SetRotation(euler Euler) {
 	obj.Get("rotation").Call("copy", euler.Value)
 }
 
-func (obj *ArrowHelper) GetPosition() Vector3 {
+func (obj ArrowHelper) GetPosition() Vector3 {
 	return Vector3{
 		Value: obj.Get("position"),
 	}
 }
 
-func (obj *ArrowHelper) GetRotation() Euler {
+func (obj ArrowHelper) GetRotation() Euler {
 	return Euler{
 		Value: obj.Get("rotation"),
 	}

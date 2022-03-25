@@ -41,10 +41,7 @@ type CylinderGeometryParameters struct {
 }
 
 // NewCylinderGeometry creates a new BoxGeometry. Set ThetaLength to NaN to create empty geometry.
-func NewCylinderGeometry(params *CylinderGeometryParameters) CylinderGeometry {
-	if params == nil {
-		params = &CylinderGeometryParameters{}
-	}
+func NewCylinderGeometry(params CylinderGeometryParameters) CylinderGeometry {
 	// Make sure all are defined to prevent unclear code. This could be changed though...
 	if params.Height == 0 || params.RadiusTop == 0 || params.RadiusBottom == 0 {
 		params.Height = 1

@@ -28,7 +28,7 @@ type BoxGeometryParameters struct {
 }
 
 // NewBoxGeometry creates a new BoxGeometry.
-func NewBoxGeometry(params *BoxGeometryParameters) BoxGeometry {
+func NewBoxGeometry(params BoxGeometryParameters) BoxGeometry {
 	if params.WidthSegments == 0 {
 		params.WidthSegments = 1
 	}

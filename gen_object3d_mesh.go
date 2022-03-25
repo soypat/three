@@ -8,55 +8,55 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Object3D interface.
-var _ Object3D = &Mesh{}
+var _ Object3D = Mesh{}
 
-func (obj *Mesh) ApplyMatrix4(matrix *Matrix4) {
+func (obj Mesh) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
-func (obj *Mesh) Add(m Object3D) {
+func (obj Mesh) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-func (obj *Mesh) Remove(m js.Value) {
+func (obj Mesh) Remove(m js.Value) {
 	obj.Value.Call("remove", m)
 }
 
-func (obj *Mesh) GetObjectById(id int) js.Value {
+func (obj Mesh) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
 
-// func (obj *Mesh) Copy() *Mesh {
-// 	return &Mesh{Object: obj.getInternalObject().Call("copy")}
+// func (obj Mesh) Copy() Mesh {
+// 	return Mesh{Object: obj.getInternalObject().Call("copy")}
 // }
 
-func (obj *Mesh) ToJSON() js.Value {
+func (obj Mesh) ToJSON() js.Value {
 	return obj.Value.Call("toJSON")
 }
 
-func (obj *Mesh) getInternalObject() js.Value {
+func (obj Mesh) getInternalObject() js.Value {
 	return obj.Value
 }
 
-func (obj *Mesh) UpdateMatrix() {
+func (obj Mesh) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
 
-func (obj *Mesh) SetPosition(v Vector3) {
+func (obj Mesh) SetPosition(v Vector3) {
 	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *Mesh) SetRotation(euler Euler) {
+func (obj Mesh) SetRotation(euler Euler) {
 	obj.Get("rotation").Call("copy", euler.Value)
 }
 
-func (obj *Mesh) GetPosition() Vector3 {
+func (obj Mesh) GetPosition() Vector3 {
 	return Vector3{
 		Value: obj.Get("position"),
 	}
 }
 
-func (obj *Mesh) GetRotation() Euler {
+func (obj Mesh) GetRotation() Euler {
 	return Euler{
 		Value: obj.Get("rotation"),
 	}

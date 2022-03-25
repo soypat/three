@@ -8,55 +8,55 @@ package three
 import "syscall/js"
 
 // Compile-time check that this type implements Object3D interface.
-var _ Object3D = &LineSegments{}
+var _ Object3D = LineSegments{}
 
-func (obj *LineSegments) ApplyMatrix4(matrix *Matrix4) {
+func (obj LineSegments) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
-func (obj *LineSegments) Add(m Object3D) {
+func (obj LineSegments) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-func (obj *LineSegments) Remove(m js.Value) {
+func (obj LineSegments) Remove(m js.Value) {
 	obj.Value.Call("remove", m)
 }
 
-func (obj *LineSegments) GetObjectById(id int) js.Value {
+func (obj LineSegments) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
 
-// func (obj *LineSegments) Copy() *LineSegments {
-// 	return &LineSegments{Object: obj.getInternalObject().Call("copy")}
+// func (obj LineSegments) Copy() LineSegments {
+// 	return LineSegments{Object: obj.getInternalObject().Call("copy")}
 // }
 
-func (obj *LineSegments) ToJSON() js.Value {
+func (obj LineSegments) ToJSON() js.Value {
 	return obj.Value.Call("toJSON")
 }
 
-func (obj *LineSegments) getInternalObject() js.Value {
+func (obj LineSegments) getInternalObject() js.Value {
 	return obj.Value
 }
 
-func (obj *LineSegments) UpdateMatrix() {
+func (obj LineSegments) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
 
-func (obj *LineSegments) SetPosition(v Vector3) {
+func (obj LineSegments) SetPosition(v Vector3) {
 	obj.Get("position").Call("copy", v.Value)
 }
 
-func (obj *LineSegments) SetRotation(euler Euler) {
+func (obj LineSegments) SetRotation(euler Euler) {
 	obj.Get("rotation").Call("copy", euler.Value)
 }
 
-func (obj *LineSegments) GetPosition() Vector3 {
+func (obj LineSegments) GetPosition() Vector3 {
 	return Vector3{
 		Value: obj.Get("position"),
 	}
 }
 
-func (obj *LineSegments) GetRotation() Euler {
+func (obj LineSegments) GetRotation() Euler {
 	return Euler{
 		Value: obj.Get("rotation"),
 	}

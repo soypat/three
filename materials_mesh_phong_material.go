@@ -12,9 +12,9 @@ type MeshPhongMaterial struct {
 	js.Value
 }
 
-func NewMeshPhongMaterial(params *MaterialParameters) *MeshPhongMaterial {
+func NewMeshPhongMaterial(params *MaterialParameters) MeshPhongMaterial {
 	v := objectify(params)
-	return &MeshPhongMaterial{
+	return MeshPhongMaterial{
 		Value: three.Get("MeshPhongMaterial").New(v),
 	}
 }

@@ -15,8 +15,8 @@ type BufferGeometry struct {
 }
 
 // NewBufferGeometry creates a new Buffer Geometry.
-func NewBufferGeometry() *BufferGeometry {
-	return &BufferGeometry{
+func NewBufferGeometry() BufferGeometry {
+	return BufferGeometry{
 		Value: three.Get("BufferGeometry").New(),
 	}
 }
@@ -33,19 +33,19 @@ func NewBufferGeometry() *BufferGeometry {
 // }
 
 // AddFace adds new Face3 (triangle) to the geometry, specified by its vertice indicies.
-func (bg *BufferGeometry) AddFace(a, b, c int) {
+func (bg BufferGeometry) AddFace(a, b, c int) {
 	face := NewFace3(float64(a), float64(b), float64(c))
 	bg.Get("faces").Call("push", face)
 }
 
 // AddAttribute adds a new attribute like 'position' to the BufferGeometry.
-func (bg *BufferGeometry) SetAttribute(name string, attr BufferAttribute) {
+func (bg BufferGeometry) SetAttribute(name string, attr BufferAttribute) {
 	bg.Call("setAttribute", name, attr.Value)
 }
 
 // GetAttribute retruns BufferGeometry's attribute by name (should be added first by
 // AddAttribute call, see threejs docs for explanations.
-func (bg *BufferGeometry) GetAttribute(name string) BufferAttribute {
+func (bg BufferGeometry) GetAttribute(name string) BufferAttribute {
 	obj := bg.Call("getAttribute", name)
 	return BufferAttribute{
 		Value: obj,

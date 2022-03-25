@@ -11,8 +11,8 @@ type DirectionalLight struct {
 	js.Value
 }
 
-func NewDirectionalLight(color *Color, intensity float64) *DirectionalLight {
-	return &DirectionalLight{
+func NewDirectionalLight(color *Color, intensity float64) DirectionalLight {
+	return DirectionalLight{
 		Value: three.Get("DirectionalLight").New(color.Value, intensity),
 	}
 }

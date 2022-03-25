@@ -4,7 +4,7 @@ import "syscall/js"
 
 type Geometry interface {
 	objecter
-	ApplyMatrix4(matrix *Matrix4)
+	ApplyMatrix4(matrix Matrix4)
 	RotateX()
 	RotateY()
 	RotateZ()

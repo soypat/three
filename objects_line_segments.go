@@ -18,8 +18,8 @@ type LineSegments struct {
 }
 
 // NewLineSegments creates new line segments
-func NewLineSegments(geom Geometry, material Material) *LineSegments {
-	return &LineSegments{
+func NewLineSegments(geom Geometry, material Material) LineSegments {
+	return LineSegments{
 		Value: three.Get("LineSegments").New(geom.getInternalObject(), material.getInternalObject()),
 	}
 }

@@ -17,8 +17,8 @@ type Line struct {
 }
 
 // NewLine creates a new material. If Material is nil, three.js will assign a randomized material to the line o_O.
-func NewLine(geom Geometry, material Material) *Line {
-	return &Line{
+func NewLine(geom Geometry, material Material) Line {
+	return Line{
 		Value: three.Get("Line").New(geom.getInternalObject(), material.getInternalObject()),
 	}
 }

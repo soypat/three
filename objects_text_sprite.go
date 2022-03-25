@@ -1,5 +1,3 @@
-//go:build TODO
-
 package three
 
 //go:generate go run codegen/object3d_method_generator/main.go -typeName TextSprite -typeSlug text_sprite
@@ -19,46 +17,46 @@ type TextSprite struct {
 }
 
 type TextSpriteParameters struct {
+	// TextSize       int                 `js:"textSize"`
+	// RedrawInterval int                 `js:"redrawInterval"`
+	// Material       *TextSpriteMaterial `js:"material"`
+	// Texture        *TextTextureParams  `js:"texture"`
 	// SEE MaterialParameters for example on how to implement this.
 	js.Value
-	TextSize       int                 `js:"textSize"`
-	RedrawInterval int                 `js:"redrawInterval"`
-	Material       *TextSpriteMaterial `js:"material"`
-	Texture        *TextTextureParams  `js:"texture"`
 }
 
 type TextSpriteMaterial struct {
-	*js.Object
-	Color *Color `js:"color"`
+	// Color *Color `js:"color"`
+	js.Value
 }
 
 type TextTextureParams struct {
-	*js.Object
-	Text       string `js:"text"`
-	FontFamily string `js:"fontFamily"`
-	Align      string `js:"align"`
+	// Text       string `js:"text"`
+	// FontFamily string `js:"fontFamily"`
+	// Align      string `js:"align"`
+	js.Value
 }
 
-func NewTextSprite(text, align string, textSize int, color *Color) *TextSprite {
-	material := &TextSpriteMaterial{
-		Object: js.Global().Get("THREE").Get("SpriteMaterial").New(),
+func NewTextSprite(text, align string, textSize int, color *Color) TextSprite {
+	material := TextSpriteMaterial{
+		Value: js.Global().Get("THREE").Get("SpriteMaterial").New(),
 	}
-	material.Color = color
+	material.Set("color", color.Value)
 
-	textureParams := &TextTextureParams{
-		Object: js.Global().Get("THREE").Get("TextTexture").New(),
+	textureParams := TextTextureParams{
+		Value: js.Global().Get("THREE").Get("TextTexture").New(),
 	}
-	textureParams.Text = text
-	textureParams.Align = align
+	textureParams.Set("text", text)
+	textureParams.Set("align", align)
 
-	params := &TextSpriteParameters{
-		Object: js.Global().Get("Object").New(),
+	params := TextSpriteParameters{
+		Value: js.Global().Get("Object").New(),
 	}
-	params.Object.Set("texture", textureParams)
-	params.Object.Set("material", material)
-	params.Object.Set("textSize", textSize)
-
-	return &TextSprite{
-		Object: js.Global().Get("THREE").Get("TextSprite").New(params),
+	params.Value.Set("texture", textureParams.Value)
+	params.Value.Set("material", material.Value)
+	params.Value.Set("textSize", textSize)
+	obj := objectify(params)
+	return TextSprite{
+		Value: js.Global().Get("THREE").Get("TextSprite").New(obj),
 	}
 }

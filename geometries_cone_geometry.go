@@ -1,5 +1,3 @@
-//go:build TODO
-
 package three
 
 //go:generate go run codegen/geometry_method_generator/main.go -typeName ConeGeometry -typeSlug cone_geometry
@@ -12,15 +10,14 @@ import (
 
 // ConeGeometry a class for generating Cone geometries.
 type ConeGeometry struct {
-	*js.Object
-
-	Radius         float64 `js:"radius"`
-	Height         float64 `js:"height"`
-	RadialSegments int     `js:"radialSegments"`
-	HeightSegments int     `js:"heightSegments"`
-	OpenEnded      bool    `js:"openEnded"`
-	ThetaStart     float64 `js:"thetaStart"`
-	ThetaLength    float64 `js:"thetaLength"`
+	// Radius         float64 `js:"radius"`
+	// Height         float64 `js:"height"`
+	// RadialSegments int     `js:"radialSegments"`
+	// HeightSegments int     `js:"heightSegments"`
+	// OpenEnded      bool    `js:"openEnded"`
+	// ThetaStart     float64 `js:"thetaStart"`
+	// ThetaLength    float64 `js:"thetaLength"`
+	js.Value
 }
 
 // ConeGeometryParameters .
@@ -42,10 +39,7 @@ type ConeGeometryParameters struct {
 }
 
 // NewConeGeometry creates a new BoxGeometry. Set ThetaLength to NaN to create empty geometry.
-func NewConeGeometry(params *ConeGeometryParameters) ConeGeometry {
-	if params == nil {
-		params = &ConeGeometryParameters{}
-	}
+func NewConeGeometry(params ConeGeometryParameters) ConeGeometry {
 	// Make sure both are defined to prevent unclear code
 	if params.Height == 0 || params.Radius == 0 {
 		params.Height = 1
@@ -65,7 +59,7 @@ func NewConeGeometry(params *ConeGeometryParameters) ConeGeometry {
 		params.RadialSegments = 1
 	}
 	return ConeGeometry{
-		Object: three.Get("ConeGeometry").New(
+		Value: three.Get("ConeGeometry").New(
 			params.Radius,
 			params.Height,
 			params.RadialSegments,

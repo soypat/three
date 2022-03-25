@@ -8,7 +8,7 @@ type objecter interface {
 
 type Object3D interface {
 	objecter
-	ApplyMatrix4(matrix *Matrix4)
+	ApplyMatrix4(matrix Matrix4)
 	Add(Object3D)
 	Remove(js.Value)
 	ToJSON() js.Value

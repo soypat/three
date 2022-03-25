@@ -9,10 +9,10 @@ import (
 )
 
 var (
-	scene    *three.Scene
+	scene    three.Scene
 	camera   three.PerspectiveCamera
 	renderer three.WebGLRenderer
-	mesh     *three.Mesh
+	mesh     three.Mesh
 )
 
 func main() {
@@ -38,13 +38,13 @@ func main() {
 	ambLight := three.NewAmbientLight(three.NewColorHex(0xbbbbbb), 0.4)
 	scene.Add(ambLight)
 
-	renderer = three.NewWebGLRenderer(&three.WebGLRendererParam{})
+	renderer = three.NewWebGLRenderer(three.WebGLRendererParam{})
 	renderer.SetPixelRatio(devicePixelRatio)
 	renderer.SetSize(windowWidth, windowHeight, true)
 	document.Get("body").Call("appendChild", renderer.Get("domElement"))
 
 	// Create cube
-	geometry := three.NewBoxGeometry(&three.BoxGeometryParameters{
+	geometry := three.NewBoxGeometry(three.BoxGeometryParameters{
 		Width:  128,
 		Height: 128,
 		Depth:  128,

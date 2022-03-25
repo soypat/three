@@ -14,7 +14,7 @@ import (
 */
 
 var (
-	scene    *three.Scene
+	scene    three.Scene
 	camera   three.PerspectiveCamera
 	renderer three.WebGLRenderer
 	controls three.TrackballControls
@@ -47,7 +47,7 @@ func main() {
 	ambLight := three.NewAmbientLight(three.NewColorHex(0xbbbbbb), 0.4)
 	scene.Add(ambLight)
 
-	renderer = three.NewWebGLRenderer(&three.WebGLRendererParam{})
+	renderer = three.NewWebGLRenderer(three.WebGLRendererParam{})
 	renderer.SetPixelRatio(devicePixelRatio)
 	renderer.SetSize(windowWidth, windowHeight, true)
 	rendererElement := renderer.Get("domElement")
@@ -78,7 +78,7 @@ func animate(_ js.Value, _ []js.Value) interface{} {
 
 // CreateEarth returns a colored, reflective, beautiful, low-res, blue-marble rendition of where we live.
 // Get Hi-res images from https://visibleearth.nasa.gov/ under Blue Marble collection.
-func CreateEarth(radius float64) *three.Mesh {
+func CreateEarth(radius float64) three.Mesh {
 	// Create earth geometry sphere
 	geometry := three.NewSphereGeometry(three.SphereGeometryParameters{
 		Radius:         earthSize,

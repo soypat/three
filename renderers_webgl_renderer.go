@@ -13,7 +13,7 @@ type WebGLRendererParam struct {
 }
 
 // WebGLRenderer creates an WebGLRenderer instance.
-func NewWebGLRenderer(params *WebGLRendererParam) WebGLRenderer {
+func NewWebGLRenderer(params WebGLRendererParam) WebGLRenderer {
 	v := objectify(params)
 	return WebGLRenderer{
 		Value: three.Get("WebGLRenderer").New(v),
@@ -29,7 +29,7 @@ func (r WebGLRenderer) SetPixelRatio(ratio float64) {
 	r.Call("setPixelRatio", ratio)
 }
 
-func (r WebGLRenderer) Render(scene *Scene, camera Camera) {
+func (r WebGLRenderer) Render(scene Scene, camera Camera) {
 	r.Call("render", scene.Value, camera.getInternalObject())
 }
 

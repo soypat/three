@@ -34,10 +34,7 @@ type PolarGridHelperParameters struct {
 	Color2 *Color
 }
 
-func NewPolarGridHelper(params *PolarGridHelperParameters) *PolarGridHelper {
-	if params == nil {
-		params = &PolarGridHelperParameters{}
-	}
+func NewPolarGridHelper(params PolarGridHelperParameters) PolarGridHelper {
 	if params.Radius == 0 {
 		params.Radius = 10
 	}
@@ -56,7 +53,7 @@ func NewPolarGridHelper(params *PolarGridHelperParameters) *PolarGridHelper {
 	if params.Color2 == nil {
 		params.Color2 = NewColorHex(0x888888)
 	}
-	return &PolarGridHelper{
+	return PolarGridHelper{
 		Value: three.Get("PolarGridHelper").New(
 			params.Radius,
 			params.Radials,

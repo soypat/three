@@ -18,11 +18,11 @@ type AxesHelper struct {
 	js.Value
 }
 
-func NewAxesHelper(size float64) *AxesHelper {
+func NewAxesHelper(size float64) AxesHelper {
 	if size == 0 {
 		size = 1
 	}
-	return &AxesHelper{
+	return AxesHelper{
 		Value: three.Get("AxesHelper").New(size),
 	}
 }

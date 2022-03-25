@@ -10,7 +10,7 @@ import "syscall/js"
 // Compile-time check that this type implements Geometry interface.
 var _ Geometry = SphereGeometry{}
 
-func (g SphereGeometry) ApplyMatrix4(matrix *Matrix4) {
+func (g SphereGeometry) ApplyMatrix4(matrix Matrix4) {
 	g.Value.Call("applyMatrix4", matrix)
 }
 
@@ -103,8 +103,8 @@ func (g SphereGeometry) ToJSON() js.Value {
 // 	return g.Value.Call("clone")
 // }
 
-func (g SphereGeometry) Copy(source Object3D, recursive bool) *SphereGeometry {
-	return &SphereGeometry{Value: g.getInternalObject().Call("copy", source.getInternalObject(), recursive)}
+func (g SphereGeometry) Copy(source Object3D, recursive bool) SphereGeometry {
+	return SphereGeometry{Value: g.getInternalObject().Call("copy", source.getInternalObject(), recursive)}
 }
 
 func (g SphereGeometry) Dispose() {

@@ -12,8 +12,8 @@ type Scene struct {
 }
 
 // NewScene - Create a new Scene object.
-func NewScene() *Scene {
-	return &Scene{
+func NewScene() Scene {
+	return Scene{
 		Value: three.Get("Scene").New(),
 	}
 }
