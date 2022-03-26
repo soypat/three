@@ -37,7 +37,7 @@ func main() {
 	camDistance := earthSize * 4
 	camera = three.NewPerspectiveCamera(70, windowWidth/windowHeight, 1, camDistance+earthSize)
 	camera.SetPosition(three.NewVector3(camDistance, 0, 0))
-	camera.LookAt(0, 0, 0)
+	camera.LookAt(three.NewVector3(0, 0, 0))
 	scene = three.NewScene()
 
 	light := three.NewDirectionalLight(three.NewColor("white"), 1)

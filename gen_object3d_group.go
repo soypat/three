@@ -10,25 +10,50 @@ import "syscall/js"
 // Compile-time check that this type implements Object3D interface.
 var _ Object3D = Group{}
 
+// readonly – Unique number for this object instance.
+func (obj Group) ID() int {
+	return obj.Get("id").Int()
+}
+
+// Applies the matrix transform to the object and updates the object's position, rotation and scale.
 func (obj Group) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
+// Applies the rotation represented by q to the object.
+func (obj Group) ApplyQuaternion(q Quaternion) {
+	obj.Call("applyQuaternion", q.Value)
+}
+
+// Adds object as child of this object. An arbitrary number of objects may be added.
+// Any current parent on an object passed in here will be removed, since an object can have at most one parent.
 func (obj Group) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-func (obj Group) Remove(m js.Value) {
-	obj.Value.Call("remove", m)
+// Adds m as a child of this, while maintaining m's world transform.
+func (obj Group) Attach(m Object3D) {
+	obj.Value.Call("attach", m.getInternalObject())
 }
 
+// Removes m as child of this object. An arbitrary number of objects may be removed.
+func (obj Group) Remove(m Object3D) {
+	obj.Value.Call("remove", m.getInternalObject())
+}
+
+// Searches through an object and its children, starting with the object itself, and returns the first with a matching id.
 func (obj Group) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
 
-// func (obj Group) Copy() Group {
-// 	return Group{Object: obj.getInternalObject().Call("copy")}
-// }
+// Copy the given m into this object. Note: event listeners and user-defined callbacks (.onAfterRender and .onBeforeRender) are not copied.
+func (obj Group) Copy(m Object3D, recursive bool) Group {
+	return Group{Value: obj.Value.Call("copy", m.getInternalObject(), recursive)}
+}
+
+func (obj Group) Clone(recursive bool) Group {
+	return Group{Value: obj.Value.Call("clone", recursive)}
+}
 
 func (obj Group) ToJSON() js.Value {
 	return obj.Value.Call("toJSON")
@@ -38,6 +63,7 @@ func (obj Group) getInternalObject() js.Value {
 	return obj.Value
 }
 
+// Updates the local transform.
 func (obj Group) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
@@ -60,4 +86,77 @@ func (obj Group) GetRotation() Euler {
 	return Euler{
 		Value: obj.Get("rotation"),
 	}
+}
+
+// Returns a vector representing the position of the object in world space.
+func (obj Group) GetWorldPosition(target Vector3) Vector3 {
+	return Vector3{
+		Value: obj.Call("getWorldPosition", target.Value),
+	}
+}
+
+// Returns a vector representing the direction of object's positive z-axis in world space.
+func (obj Group) GetWorldDirection(target Vector3) Vector3 {
+	return Vector3{
+		Value: obj.Call("getWorldDirection", target.Value),
+	}
+}
+
+// Returns a vector of the scaling factors applied to the object for each axis in world space.
+func (obj Group) GetWorldScale(target Vector3) Vector3 {
+	return Vector3{
+		Value: obj.Call("getWorldScale", target.Value),
+	}
+}
+
+// Returns a quaternion representing the rotation of the object in world space.
+func (obj Group) GetWorldQuaternion(target Quaternion) Quaternion {
+	return Quaternion{
+		Value: obj.Call("getWorldDirection", target.Value),
+	}
+}
+
+// Rotates the object to face a point in world space.
+func (obj Group) LookAt(target Vector3)  {
+	obj.Call("lookAt", target.Value)
+}
+
+// Rotates the object to face a point in world space.
+func (obj Group) LookAtCoords(x, y, z float64)  {
+	obj.Call("lookAt", x, y, z)
+}
+
+// Converts vec from this object's local space to world space.
+func (obj Group) LocalToWorld(vec Vector3) Vector3 {
+	return Vector3{
+		Value: obj.Call("localToWorld", vec.Value),
+	}
+}
+
+// Converts vec from world space to this object's local space.
+// vec represents position in world space.
+func (obj Group) WorldToLocal(vec Vector3) Vector3 {
+	return Vector3{
+		Value: obj.Call("worldToLocal", vec.Value),
+	}
+}
+
+// Translate an object by distance along an axis in object space. The axis is assumed to be normalized.
+func (obj Group) TranslateOnAxis(distance float64, axis Vector3) {
+	obj.Call("translateOnAxis", axis.Value, distance)
+}
+
+// Translates object along x axis in object space by distance units.
+func (obj Group) TranslateX(distance float64) {
+	obj.Call("translateX", distance)
+}
+
+// Translates object along y axis in object space by distance units.
+func (obj Group) TranslateY(distance float64) {
+	obj.Call("translateY", distance)
+}
+
+// Translates object along z axis in object space by distance units.
+func (obj Group) TranslateZ(distance float64) {
+	obj.Call("translateZ", distance)
 }

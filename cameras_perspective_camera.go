@@ -1,6 +1,6 @@
 package three
 
-//go:generate go run codegen/camera_method_generator/main.go -typeName PerspectiveCamera -typeSlug perspective_camera
+//go:generate go run codegen/object3d_method_generator/main.go -typeName PerspectiveCamera -typeSlug perspective_camera
 
 import "syscall/js"
 
@@ -50,4 +50,12 @@ func (c PerspectiveCamera) ClearViewOffset() {
 
 func (c PerspectiveCamera) UpdateProjectionMatrix() {
 	c.Call("updateProjectionMatrix")
+}
+
+// SetUp sets the up direction for the camera.
+//
+// It is the equivalent to c.Up.Set(v.X, v.Y, v.Z)
+func (obj PerspectiveCamera) SetUp(v Vector3) {
+	x, y, z := v.Coords()
+	obj.Get("up").Call("set", x, y, z)
 }
