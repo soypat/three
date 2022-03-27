@@ -15,33 +15,43 @@ func (obj Mesh) ID() int {
 	return obj.Get("id").Int()
 }
 
-// Applies the matrix transform to the object and updates the object's position, rotation and scale.
+// ApplyMatrix4 applies the matrix transform to the object and updates the object's position, rotation and scale.
 func (obj Mesh) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
-// Applies the rotation represented by q to the object.
+// ApplyQuaternion applies the rotation represented by q to the object.
 func (obj Mesh) ApplyQuaternion(q Quaternion) {
 	obj.Call("applyQuaternion", q.Value)
 }
 
-// Adds object as child of this object. An arbitrary number of objects may be added.
+// Add object as child of this object. An arbitrary number of objects may be added.
 // Any current parent on an object passed in here will be removed, since an object can have at most one parent.
 func (obj Mesh) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-// Adds m as a child of this, while maintaining m's world transform.
+// Attach adds m as a child of this, while maintaining m's world transform.
 func (obj Mesh) Attach(m Object3D) {
 	obj.Value.Call("attach", m.getInternalObject())
 }
 
-// Removes m as child of this object. An arbitrary number of objects may be removed.
+// Clear removes all child objects.
+func (obj Mesh) Clear() {
+	obj.Value.Call("clear")
+}
+
+// Remove m as child of this object. An arbitrary number of objects may be removed.
 func (obj Mesh) Remove(m Object3D) {
 	obj.Value.Call("remove", m.getInternalObject())
 }
 
-// Searches through an object and its children, starting with the object itself, and returns the first with a matching id.
+// RemoveFromParent removes this object from its current parent.
+func (obj Mesh) RemoveFromParent() {
+	obj.Value.Call("removeFromParent")
+}
+
+// GetObjectById searches through an object and its children, starting with the object itself, and returns the first with a matching id.
 func (obj Mesh) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
@@ -68,12 +78,42 @@ func (obj Mesh) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
 
-func (obj Mesh) SetPosition(v Vector3) {
-	obj.Get("position").Call("copy", v.Value)
+// Rotate an object along an axis in object space. The axis is assumed to be normalized.
+// axis is a normalized vector in object space.
+func (obj Mesh) RotateOnAxis(angle float64, axis Vector3) (this Mesh ){
+	obj.Call("rotateOnAxis", axis.Value, angle)
+	return obj
 }
 
-func (obj Mesh) SetRotation(euler Euler) {
-	obj.Get("rotation").Call("copy", euler.Value)
+// Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
+// axis is a normalized vector in world space.
+func (obj Mesh) RotateOnWorldAxis(angle float64, axis Vector3) (this Mesh ){
+	obj.Call("rotateOnAxis", axis.Value, angle)
+	return obj
+}
+
+// Calls setFromAxisAngle( axis, angle ) on the .quaternion.
+func (obj Mesh) SetRotationFromAxisAngle(angle float64, axis Vector3) {
+	obj.Call("setRotationFromAxisAngle", axis.Value, angle)
+}
+
+// Calls setRotationFromEuler(euler) on the .quaternion.
+func (obj Mesh) SetRotationFromEuler(euler Euler) {
+	obj.Call("setRotationFromEuler", euler.Value)
+}
+
+// Calls setFromRotationMatrix(m) on the .quaternion.
+func (obj Mesh) SetRotationFromMatrix(m Matrix4) {
+	obj.Call("setRotationFromMatrix", m.Value)
+}
+
+// Copy the given quaternion into .quaternion.
+func (obj Mesh) SetRotationFromQuaternion(q Quaternion) {
+	obj.Call("setRotationFromQuaternion", q.Value)
+}
+
+func (obj Mesh) SetPosition(v Vector3) {
+	obj.Get("position").Call("copy", v.Value)
 }
 
 func (obj Mesh) GetPosition() Vector3 {
@@ -89,30 +129,34 @@ func (obj Mesh) GetRotation() Euler {
 }
 
 // Returns a vector representing the position of the object in world space.
-func (obj Mesh) GetWorldPosition(target Vector3) Vector3 {
+// The result is copied into dst.
+func (obj Mesh) GetWorldPosition(dst Vector3) Vector3 {
 	return Vector3{
-		Value: obj.Call("getWorldPosition", target.Value),
+		Value: obj.Call("getWorldPosition", dst.Value),
 	}
 }
 
 // Returns a vector representing the direction of object's positive z-axis in world space.
-func (obj Mesh) GetWorldDirection(target Vector3) Vector3 {
+// The result is copied into dst.
+func (obj Mesh) GetWorldDirection(dst Vector3) Vector3 {
 	return Vector3{
-		Value: obj.Call("getWorldDirection", target.Value),
+		Value: obj.Call("getWorldDirection", dst.Value),
 	}
 }
 
 // Returns a vector of the scaling factors applied to the object for each axis in world space.
-func (obj Mesh) GetWorldScale(target Vector3) Vector3 {
+// The result is copied into dst.
+func (obj Mesh) GetWorldScale(dst Vector3) Vector3 {
 	return Vector3{
-		Value: obj.Call("getWorldScale", target.Value),
+		Value: obj.Call("getWorldScale", dst.Value),
 	}
 }
 
 // Returns a quaternion representing the rotation of the object in world space.
-func (obj Mesh) GetWorldQuaternion(target Quaternion) Quaternion {
+// The result is copied into dst.
+func (obj Mesh) GetWorldQuaternion(dst Quaternion) Quaternion {
 	return Quaternion{
-		Value: obj.Call("getWorldDirection", target.Value),
+		Value: obj.Call("getWorldDirection", dst.Value),
 	}
 }
 
@@ -159,4 +203,9 @@ func (obj Mesh) TranslateY(distance float64) {
 // Translates object along z axis in object space by distance units.
 func (obj Mesh) TranslateZ(distance float64) {
 	obj.Call("translateZ", distance)
+}
+
+// Abstract (empty) method to get intersections between a casted ray and this object. Subclasses such as Mesh, Line, and Points implement this method in order to use raycasting.
+func (obj Mesh) Raycast(rc Raycaster, intersects js.Value) {
+	obj.Value.Call("raycast", rc.Value, intersects)
 }

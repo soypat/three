@@ -19,11 +19,3 @@ func NewMesh(geometry Geometry, material Material) Mesh {
 		Value: three.Get("Mesh").New(geometry.getInternalObject(), material.getInternalObject()),
 	}
 }
-
-func (m Mesh) SetRotationFromAxisAngle(axis string, angle float64) {
-	m.Call("setRotationFromAxisAngle", axis, angle)
-}
-
-func (m Mesh) RotateX() {
-	m.Call("rotateX")
-}

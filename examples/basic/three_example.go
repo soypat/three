@@ -68,7 +68,7 @@ func main() {
 func animate(_ js.Value, _ []js.Value) interface{} {
 	rot := mesh.GetRotation()
 	x, y, z := rot.Angles()
-	mesh.SetRotation(three.NewEuler(x+0.01, y+0.01, z, ""))
+	mesh.SetRotationFromEuler(three.NewEuler(x+0.01, y+0.01, z, ""))
 
 	renderer.Render(scene, camera)
 

@@ -15,33 +15,43 @@ func (obj AxesHelper) ID() int {
 	return obj.Get("id").Int()
 }
 
-// Applies the matrix transform to the object and updates the object's position, rotation and scale.
+// ApplyMatrix4 applies the matrix transform to the object and updates the object's position, rotation and scale.
 func (obj AxesHelper) ApplyMatrix4(matrix Matrix4) {
 	obj.Call("applyMatrix4", matrix.Value)
 }
 
-// Applies the rotation represented by q to the object.
+// ApplyQuaternion applies the rotation represented by q to the object.
 func (obj AxesHelper) ApplyQuaternion(q Quaternion) {
 	obj.Call("applyQuaternion", q.Value)
 }
 
-// Adds object as child of this object. An arbitrary number of objects may be added.
+// Add object as child of this object. An arbitrary number of objects may be added.
 // Any current parent on an object passed in here will be removed, since an object can have at most one parent.
 func (obj AxesHelper) Add(m Object3D) {
 	obj.Value.Call("add", m.getInternalObject())
 }
 
-// Adds m as a child of this, while maintaining m's world transform.
+// Attach adds m as a child of this, while maintaining m's world transform.
 func (obj AxesHelper) Attach(m Object3D) {
 	obj.Value.Call("attach", m.getInternalObject())
 }
 
-// Removes m as child of this object. An arbitrary number of objects may be removed.
+// Clear removes all child objects.
+func (obj AxesHelper) Clear() {
+	obj.Value.Call("clear")
+}
+
+// Remove m as child of this object. An arbitrary number of objects may be removed.
 func (obj AxesHelper) Remove(m Object3D) {
 	obj.Value.Call("remove", m.getInternalObject())
 }
 
-// Searches through an object and its children, starting with the object itself, and returns the first with a matching id.
+// RemoveFromParent removes this object from its current parent.
+func (obj AxesHelper) RemoveFromParent() {
+	obj.Value.Call("removeFromParent")
+}
+
+// GetObjectById searches through an object and its children, starting with the object itself, and returns the first with a matching id.
 func (obj AxesHelper) GetObjectById(id int) js.Value {
 	return obj.Call("getObjectById", id)
 }
@@ -68,12 +78,42 @@ func (obj AxesHelper) UpdateMatrix() {
 	obj.Call("updateMatrix")
 }
 
-func (obj AxesHelper) SetPosition(v Vector3) {
-	obj.Get("position").Call("copy", v.Value)
+// Rotate an object along an axis in object space. The axis is assumed to be normalized.
+// axis is a normalized vector in object space.
+func (obj AxesHelper) RotateOnAxis(angle float64, axis Vector3) (this AxesHelper ){
+	obj.Call("rotateOnAxis", axis.Value, angle)
+	return obj
 }
 
-func (obj AxesHelper) SetRotation(euler Euler) {
-	obj.Get("rotation").Call("copy", euler.Value)
+// Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
+// axis is a normalized vector in world space.
+func (obj AxesHelper) RotateOnWorldAxis(angle float64, axis Vector3) (this AxesHelper ){
+	obj.Call("rotateOnAxis", axis.Value, angle)
+	return obj
+}
+
+// Calls setFromAxisAngle( axis, angle ) on the .quaternion.
+func (obj AxesHelper) SetRotationFromAxisAngle(angle float64, axis Vector3) {
+	obj.Call("setRotationFromAxisAngle", axis.Value, angle)
+}
+
+// Calls setRotationFromEuler(euler) on the .quaternion.
+func (obj AxesHelper) SetRotationFromEuler(euler Euler) {
+	obj.Call("setRotationFromEuler", euler.Value)
+}
+
+// Calls setFromRotationMatrix(m) on the .quaternion.
+func (obj AxesHelper) SetRotationFromMatrix(m Matrix4) {
+	obj.Call("setRotationFromMatrix", m.Value)
+}
+
+// Copy the given quaternion into .quaternion.
+func (obj AxesHelper) SetRotationFromQuaternion(q Quaternion) {
+	obj.Call("setRotationFromQuaternion", q.Value)
+}
+
+func (obj AxesHelper) SetPosition(v Vector3) {
+	obj.Get("position").Call("copy", v.Value)
 }
 
 func (obj AxesHelper) GetPosition() Vector3 {
@@ -89,30 +129,34 @@ func (obj AxesHelper) GetRotation() Euler {
 }
 
 // Returns a vector representing the position of the object in world space.
-func (obj AxesHelper) GetWorldPosition(target Vector3) Vector3 {
+// The result is copied into dst.
+func (obj AxesHelper) GetWorldPosition(dst Vector3) Vector3 {
 	return Vector3{
-		Value: obj.Call("getWorldPosition", target.Value),
+		Value: obj.Call("getWorldPosition", dst.Value),
 	}
 }
 
 // Returns a vector representing the direction of object's positive z-axis in world space.
-func (obj AxesHelper) GetWorldDirection(target Vector3) Vector3 {
+// The result is copied into dst.
+func (obj AxesHelper) GetWorldDirection(dst Vector3) Vector3 {
 	return Vector3{
-		Value: obj.Call("getWorldDirection", target.Value),
+		Value: obj.Call("getWorldDirection", dst.Value),
 	}
 }
 
 // Returns a vector of the scaling factors applied to the object for each axis in world space.
-func (obj AxesHelper) GetWorldScale(target Vector3) Vector3 {
+// The result is copied into dst.
+func (obj AxesHelper) GetWorldScale(dst Vector3) Vector3 {
 	return Vector3{
-		Value: obj.Call("getWorldScale", target.Value),
+		Value: obj.Call("getWorldScale", dst.Value),
 	}
 }
 
 // Returns a quaternion representing the rotation of the object in world space.
-func (obj AxesHelper) GetWorldQuaternion(target Quaternion) Quaternion {
+// The result is copied into dst.
+func (obj AxesHelper) GetWorldQuaternion(dst Quaternion) Quaternion {
 	return Quaternion{
-		Value: obj.Call("getWorldDirection", target.Value),
+		Value: obj.Call("getWorldDirection", dst.Value),
 	}
 }
 
