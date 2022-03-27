@@ -80,15 +80,33 @@ func (obj Fog) UpdateMatrix() {
 
 // Rotate an object along an axis in object space. The axis is assumed to be normalized.
 // axis is a normalized vector in object space.
-func (obj Fog) RotateOnAxis(angle float64, axis Vector3) (this Fog ){
+func (obj Fog) RotateOnAxis(angle float64, axis Vector3) (this Fog) {
 	obj.Call("rotateOnAxis", axis.Value, angle)
 	return obj
 }
 
 // Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
 // axis is a normalized vector in world space.
-func (obj Fog) RotateOnWorldAxis(angle float64, axis Vector3) (this Fog ){
+func (obj Fog) RotateOnWorldAxis(angle float64, axis Vector3) (this Fog) {
 	obj.Call("rotateOnAxis", axis.Value, angle)
+	return obj
+}
+
+// RotateX rotates object around x axis in local space.
+func (obj Fog) RotateX(rad float64) (this Fog) {
+	obj.Call("rotateX", rad)
+	return obj
+}
+
+// RotateY rotates object around y axis in local space.
+func (obj Fog) RotateY(rad float64) (this Fog) {
+	obj.Call("rotateY", rad)
+	return obj
+}
+
+// RotateZ rotates object around z axis in local space.
+func (obj Fog) RotateZ(rad float64) (this Fog) {
+	obj.Call("rotateZ", rad)
 	return obj
 }
 

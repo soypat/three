@@ -80,15 +80,33 @@ func (obj Mesh) UpdateMatrix() {
 
 // Rotate an object along an axis in object space. The axis is assumed to be normalized.
 // axis is a normalized vector in object space.
-func (obj Mesh) RotateOnAxis(angle float64, axis Vector3) (this Mesh ){
+func (obj Mesh) RotateOnAxis(angle float64, axis Vector3) (this Mesh) {
 	obj.Call("rotateOnAxis", axis.Value, angle)
 	return obj
 }
 
 // Rotate an object along an axis in world space. The axis is assumed to be normalized. Method Assumes no rotated parent.
 // axis is a normalized vector in world space.
-func (obj Mesh) RotateOnWorldAxis(angle float64, axis Vector3) (this Mesh ){
+func (obj Mesh) RotateOnWorldAxis(angle float64, axis Vector3) (this Mesh) {
 	obj.Call("rotateOnAxis", axis.Value, angle)
+	return obj
+}
+
+// RotateX rotates object around x axis in local space.
+func (obj Mesh) RotateX(rad float64) (this Mesh) {
+	obj.Call("rotateX", rad)
+	return obj
+}
+
+// RotateY rotates object around y axis in local space.
+func (obj Mesh) RotateY(rad float64) (this Mesh) {
+	obj.Call("rotateY", rad)
+	return obj
+}
+
+// RotateZ rotates object around z axis in local space.
+func (obj Mesh) RotateZ(rad float64) (this Mesh) {
+	obj.Call("rotateZ", rad)
 	return obj
 }
 
