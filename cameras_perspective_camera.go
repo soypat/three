@@ -59,3 +59,13 @@ func (obj PerspectiveCamera) SetUp(v Vector3) {
 	x, y, z := v.Coords()
 	obj.Get("up").Call("set", x, y, z)
 }
+
+// SetFar sets frustum far plane. Default is 2000.
+func (obj PerspectiveCamera) SetFar(far float64) {
+	obj.Set("far", far)
+}
+
+// SetNear sets frustum near plane. Default is 0.1.
+func (obj PerspectiveCamera) SetNear(near float64) {
+	obj.Set("near", near)
+}
