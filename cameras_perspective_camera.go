@@ -61,11 +61,63 @@ func (obj PerspectiveCamera) SetUp(v Vector3) {
 }
 
 // SetFar sets frustum far plane. Default is 2000.
+// Needs call to UpdateProjectionMatrix to take effect.
 func (obj PerspectiveCamera) SetFar(far float64) {
 	obj.Set("far", far)
 }
 
 // SetNear sets frustum near plane. Default is 0.1.
+// Needs call to UpdateProjectionMatrix to take effect.
 func (obj PerspectiveCamera) SetNear(near float64) {
 	obj.Set("near", near)
+}
+
+// SetAspect sets the camera aspect ratio. Usually the canvas width/canvas height.
+// Needs call to UpdateProjectionMatrix to take effect.
+func (obj PerspectiveCamera) SetAspect(ratio float64) {
+	obj.Set("aspect", ratio)
+}
+
+// SetFOV sets Camera frustum vertical field of view, from bottom to top of view, in degrees.
+// Needs call to UpdateProjectionMatrix to take effect.
+func (obj PerspectiveCamera) SetFOV(fov float64) {
+	obj.Set("fov", fov)
+}
+
+// Sets the zoom factor of the camera.
+// Needs call to UpdateProjectionMatrix to take effect.
+func (obj PerspectiveCamera) SetZoom(zoom float64) {
+	obj.Set("zoom", zoom)
+}
+
+// GetUp gets the up direction for the camera.
+func (obj PerspectiveCamera) GetUp() Vector3 {
+	return Vector3{
+		Value: obj.Get("up"),
+	}
+}
+
+// GetFar gets frustum far plane. Default is 2000.
+func (obj PerspectiveCamera) GetFar() float64 {
+	return obj.Get("far").Float()
+}
+
+// GetNear gets frustum near plane. Default is 0.1.
+func (obj PerspectiveCamera) GetNear() float64 {
+	return obj.Get("near").Float()
+}
+
+// GetAspect gets the camera aspect ratio. Usually the canvas width/canvas height.
+func (obj PerspectiveCamera) GetAspect() float64 {
+	return obj.Get("aspect").Float()
+}
+
+// GetFOV gets Camera frustum vertical field of view, from bottom to top of view, in degrees.
+func (obj PerspectiveCamera) GetFOV() float64 {
+	return obj.Get("fov").Float()
+}
+
+// GetZoom gets the zoom factor of the camera.
+func (obj PerspectiveCamera) GetZoom() float64 {
+	return obj.Get("zoom").Float()
 }
